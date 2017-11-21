@@ -17,9 +17,23 @@ router.post('/autor/', autenticar, (req, res) => {
 });
 
 router.get('/autor/', (req, res) => {
-  Autor.find({})
+  let body = _.pick(req.query, ['_id', 'nome']);
+
+  Autor.find(body)
     .then((autor) => res.send(autor))
     .catch((e) => res.status(400).send());
+});
+
+router.patch('/autor/:id', autenticar, (req, res) => {
+  let body = _.pick(req.body, ['nome']);
+  let id = req.params.id;
+
+  if(!ObjectID.isValid(id))
+    res.status(404).send();
+
+    Autor.findByIdAndUpdate(id, body, {new: true})
+      .then((autor) => res.send(autor))
+      .catch((e) => res.status(400).send(e));
 });
 
 module.exports = router;
