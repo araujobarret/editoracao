@@ -8,7 +8,7 @@ let {Rubrica} = require('../model/rubrica');
 let router = express.Router();
 
 router.post('/rubrica/', autenticar, (req, res) => {
-  let body = _.pick(req.body, ['descricao', 'tipo']);
+  let body = _.pick(req.body, ['codigo', 'descricao', 'tipo']);
   let rubrica = new Rubrica(body);
 
   rubrica.save()
@@ -17,7 +17,7 @@ router.post('/rubrica/', autenticar, (req, res) => {
 });
 
 router.get('/rubrica/', (req, res) => {
-  let body = _.pick(req.query, ['_id', 'descricao', 'tipo']);
+  let body = _.pick(req.query, ['_id', 'codigo', 'descricao', 'tipo']);
 
   Rubrica.find(body)
     .then((rubricas) => res.send(rubricas))
@@ -25,7 +25,7 @@ router.get('/rubrica/', (req, res) => {
 });
 
 router.patch('/rubrica/:id', autenticar,(req, res) => {
-  let body = _.pick(req.body, ['descricao', 'tipo']);
+  let body = _.pick(req.body, ['codigo', 'descricao', 'tipo']);
   let id = req.params.id;
 
   if(!ObjectID.isValid(id))

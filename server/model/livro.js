@@ -7,6 +7,18 @@ let assuntoSchema = mongoose.Schema({
   }
 }, {_id: false});
 
+let estoqueSchema = mongoose.Schema({
+  quantidade: {
+    type: Number,
+    required: true
+  },
+  local: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'Local'
+  }
+});
+
 let Livro = mongoose.model('Livro', {
   isbn: {
     type: String,
@@ -19,6 +31,10 @@ let Livro = mongoose.model('Livro', {
     required: true,
     trim: true
   },
+  ano: {
+    type: Number,
+    required: true
+  },
   autores: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -27,11 +43,8 @@ let Livro = mongoose.model('Livro', {
       ref: 'Autor'
     }
   ],
-  ano: {
-    type: Number,
-    required: true
-  },
   assuntos: [ assuntoSchema ],
+  estoque: [ estoqueSchema],
   paginas: {
     type: Number,
     required: true

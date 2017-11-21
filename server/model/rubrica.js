@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 
-let Local = mongoose.model('Rubrica', {
+let Rubrica = mongoose.model('Rubrica', {
+  codigo: {
+    type: String,
+    unique: true,
+    required: true,
+    trim: true
+  },
   descricao: {
     type: String,
     required: true,
