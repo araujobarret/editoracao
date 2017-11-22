@@ -19,7 +19,7 @@ let estoqueSchema = mongoose.Schema({
   }
 });
 
-let Livro = mongoose.model('Livro', {
+let livroSchema = mongoose.Schema({
   isbn: {
     type: String,
     required: true,
@@ -65,5 +65,7 @@ let Livro = mongoose.model('Livro', {
     trim: true
   }
 });
+
+let Livro = mongoose.model('Livro', livroSchema);
 
 module.exports = { Livro };

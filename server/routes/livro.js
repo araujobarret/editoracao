@@ -15,8 +15,12 @@ router.post('/livro', autenticar, (req, res) => {
   let livro = new Livro(body);
 
   if(!_.isEmpty(autores)) {
-    for(autor of autores.autores)
+    for(autor of autores.autores) {
+      if(!ObjectID.isValid(autor._idAutor)){
+        res.status(404).send();
+      }
       livro.autores.addToSet(autor._idAutor);
+    }
   }
 
   if(!_.isEmpty(assuntos)) {
@@ -50,6 +54,43 @@ router.get('/livro/:id', (req, res) => {
 
       res.send(livro);
     }).catch((e) => res.status(400).send(e));
+});
+
+router.patch('/livro/:id', autenticar, (req, res) => {
+  let id = req.params.id;
+  let body = _.pick(req.query, ['isbn', 'titulo', 'ano', 'paginas', 'peso', 'formato', 'valor_venda', 'ean']);
+  let autores = _.pick(req.body, ['autores']);
+  let assuntos = _.pick(req.body, ['assuntos']);
+  let unset = {
+    isbn: "",
+    titulo: "",
+    ano: "",
+    paginas: "",
+    peso: "",
+    formato: "",
+    valor_venda: "",
+    ean: "",
+    autores: {},
+    assuntos: {}
+  };
+
+  if(!ObjectID.isValid(id))
+    res.status(404).send();
+
+  for(key in params){
+    delete unset[key];
+  }
+
+  if(_.isEmpty(unset)) {
+    Livro.findByIdAndUpdate(id, {$set: body}, {new: true})
+      .then((livro) => res.send(livro))
+      .catch((e) => res.status(400).send(e));
+  }
+  else {
+    Livro.findByIdAndUpdate(id, {$set: body, $unset: unset}, {new: true})
+      .then((livro) => res.send(livro))
+      .catch((e) => res.status(400).send(e));
+  }
 });
 
 module.exports = router;
