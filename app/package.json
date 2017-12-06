@@ -12,10 +12,13 @@
   "dependencies": {
     "axios": "^0.16.2",
     "express": "^4.15.4",
+    "node-env-file": "^0.1.8",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
+    "react-redux": "^5.0.6",
     "react-router": "^2.0.0",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.5.1",

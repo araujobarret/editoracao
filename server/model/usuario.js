@@ -31,7 +31,7 @@ let usuarioSchema = mongoose.Schema({
       required: true
     },
     _id: false
-  }]
+  }, {expireAfterSeconds: 10}]
 });
 
 usuarioSchema.methods.generateAuthToken = function(){
