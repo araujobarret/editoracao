@@ -1,5 +1,5 @@
-import axios from 'axios';
-import * as types from '../constants/ActionTypes';
+import fetch from 'node-fetch';
+import * as types from '../constants/Api';
 
 // Checa se o token é valido
 export const startCheckToken = (token) => {
@@ -17,7 +17,14 @@ const login = (token) => {
 // Executa o login no backend
 export const startLogin = (login, senha) => {
   return (dispatch, getState) => {
-    return axios.post(types.USUARIO_LOGIN, {login, senha})
-      .then((res) => console.log(JSON.stringify(res, null, 2)));
+    return fetch(types.USUARIO_LOGIN, {
+      method: 'POST',
+      body: JSON.stringify({ login, senha }),
+      headers: { 'Content-Type': 'application/json' }
+    }).then((res) => {
+        // Pass the res.config.
+        console.log(JSON.stringify(res, null, 2));
+      })
+      .catch((e) => console.log(e));
   }
 };

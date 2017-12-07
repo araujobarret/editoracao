@@ -1,11 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 let {mongoose} = require('./db/mongoose');
 
 let app = express();
 const port = process.env.PORT || 3000;
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(require('./routes/usuario'));
 app.use(require('./routes/local'));
