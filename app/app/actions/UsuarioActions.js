@@ -20,9 +20,8 @@ export const startLogin = (login, senha) => {
     return fetch(types.USUARIO_LOGIN, {
       method: 'POST',
       body: JSON.stringify({ login, senha }),
-      headers: { 'Content-Type': 'application/json' }
-    }).then((res) => {
-        // Pass the res.config.
+      headers: { 'Content-Type': 'application/json', 'x-auth': '*' }
+    }).then((res) => {        
         console.log(JSON.stringify(res, null, 2));
       })
       .catch((e) => console.log(e));
