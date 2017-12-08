@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
+import * as Redux from 'react-redux';
+import * as actions from '../actions/UsuarioActions';
+import { TOKEN_LOCAL_STORAGE } from '../constants/Api';
 
 class Login extends Component {
-  onLogin(data){
-    data.preventDefault();
+  constructor(props) {
+      super(props);
+      this.onLogin = this.onLogin.bind(this);
+  }
+
+  onLogin(e){
+    e.preventDefault();
+    let {dispatch} = this.props;
+    let login = this.refs.login.value;
+    let senha = this.refs.senha.value;
+    dispatch(actions.startLogin(login, senha));
   }
 
   render() {
@@ -34,4 +46,4 @@ class Login extends Component {
   }
 };
 
-export default Login;
+export default Redux.connect()(Login);

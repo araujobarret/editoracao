@@ -25,7 +25,7 @@ router.post('/usuario/login', (req,res) => {
     return usuario.generateAuthToken().then((token) => {
       res.header('x-auth', token).send(usuario);
     });
-  }).catch((e) => res.status(400).send());
+  }).catch((e) => res.status(401).send());
 
 });
 

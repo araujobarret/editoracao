@@ -44,7 +44,7 @@ let livroSchema = mongoose.Schema({
     }
   ],
   assuntos: [ assuntoSchema ],
-  estoque: [ estoqueSchema],
+  estoque: [ estoqueSchema ],
   paginas: {
     type: Number,
     required: true

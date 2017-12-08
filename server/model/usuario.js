@@ -4,6 +4,17 @@ const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 const bcrypt = require('bcryptjs');
 
+let tokenSchema = mongoose.Schema({
+  access: {
+    type: String,
+    required: true
+  },
+  token: {
+    type: String,
+    required: true
+  }
+}, { _id: false });
+
 let usuarioSchema = mongoose.Schema({
   login: {
     type: String,
@@ -21,17 +32,7 @@ let usuarioSchema = mongoose.Schema({
     required: true,
     minlength: 8
   },
-  tokens: [{
-    access: {
-      type: String,
-      required: true
-    },
-    token: {
-      type: String,
-      required: true
-    },
-    _id: false
-  }, {expireAfterSeconds: 100}]
+  tokens: [ tokenSchema ]
 });
 
 usuarioSchema.methods.generateAuthToken = function(){
