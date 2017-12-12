@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
-import { Router, browserHistory } from 'react-router';
 
-import Routes from './routes/';
+import Routes from './routes/index';
 
 import configureStore from './store/configureStore';
 
@@ -13,7 +12,7 @@ const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={browserHistory} routes={Routes} store={store}/>
+    <Routes />
   </Provider>,
   document.getElementById('app')
 );
