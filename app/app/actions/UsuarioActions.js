@@ -12,11 +12,14 @@ export const startCheckToken = (token) => {
       data: {token},
       headers: Object.assign({}, types.HTTP_HEADER, {'x-auth': token}),
       validateStatus: function (status) {
-        return status >= 200 && status <= 401; 
+        return status >= 200 && status <= 401;
       }
     }).then((res) => {
       if(res.status === 200 && res.data._id && res.headers['x-auth']){
         dispatch(setLogin(res.data.login, token));
+      }
+      else {
+        // Remove o token
       }
     }).catch((e) => {
       dispatch(erroLogin(ERRO_COMUNICACAO));
@@ -47,7 +50,7 @@ export const startLogin = (login, senha) => {
     return axios({
       method: 'post',
       url: types.USUARIO_LOGIN,
-      data: {login,senha},
+      data: { login, senha },
       headers: types.HTTP_HEADER,
       validateStatus: function (status) {
         return status >= 200 && status <= 401; // default

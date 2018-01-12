@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import {Route, Router, IndexRoute, browserHistory} from 'react-router';
+import { Route, Router, IndexRoute } from 'react-router';
 import * as actions from '../actions/UsuarioActions';
 import Login from '../components/Login';
 import Menu from '../components/Menu';
@@ -19,17 +19,26 @@ let requireLogin = function(nextState, replace, next) {
   next();
 }
 
-let Routes = React.createClass({
-  render: function(){
+class Routes extends React.Component{
+
+  constructor(props){
+    super(props);
+    console.log("Props", props);
+    this.state = {
+      history: this.props.history
+    };
+  }
+
+  render(){
     return (
-      <Router history={browserHistory}>
+      <Router history={this.state.history}>
         <Route path="/">
-          <IndexRoute component={Login}/>
+          <IndexRoute component={Login} />
           <Route path="app" component={Menu} />
         </Route>
       </Router>
     );
   }
-});
+}
 
 export default Routes;
