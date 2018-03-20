@@ -4,15 +4,14 @@ import ReactDOM from 'react-dom';
 import { syncHistoryWithStore, routerReducer} from 'react-router-redux';
 import { Route, Router, IndexRoute, browserHistory } from 'react-router';
 
-// import Routes from './routes/index';
+import Routes from './routes/index';
 
 import configureStore from './store/configureStore';
 import Login from './components/Login';
 import Menu from './components/Menu';
 
 // App css
-// require('style!css!sass!applicationStyles');
-require("./styles/app.scss");
+require('style!css!sass!applicationStyles');
 const store = configureStore();
 
 const history = syncHistoryWithStore(browserHistory, store);
@@ -27,7 +26,7 @@ ReactDOM.render(
     </Router>
 
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('app')
 );
 
 // <Routes history={history}/>
