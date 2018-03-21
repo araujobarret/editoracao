@@ -1,30 +1,22 @@
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
-import ReactDOM from 'react-dom';
-import { syncHistoryWithStore, routerReducer} from 'react-router-redux';
-import { Route, Router, IndexRoute, browserHistory } from 'react-router';
+import { ConnectedRouter as Router} from 'react-router-redux';
 
-import Routes from './routes/index';
+//import Routes from './routes/index';
 
-import configureStore from './store/configureStore';
 import Login from './components/Login';
 import Menu from './components/Menu';
 
-const store = configureStore();
 
-const history = syncHistoryWithStore(browserHistory, store);
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <Login />
+      </Router>
+    );
+  }
+}
 
-ReactDOM.render(
-  <Provider store={store}>
-    <Router history={history}>
-      <Route path="/">
-        <IndexRoute component={Login} />
-        <Route path="app" component={Menu} />
-      </Route>
-    </Router>
-
-  </Provider>,
-  document.getElementById('app')
-);
+export default App;
 
 // <Routes history={history}/>

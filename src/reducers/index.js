@@ -5,7 +5,7 @@ import usuario from './usuario'
 
 const rootReducer = combineReducers({
   usuario,
-  routing: routerReducer
+  router: routerReducer
 });
 
 export default rootReducer;
