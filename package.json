@@ -1,38 +1,22 @@
 {
-  "name": "boilerplate2",
-  "version": "1.0.0",
-  "description": "Simple react app",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "author": "Carlos Alberto",
-  "license": "MIT",
+  "name": "editoracao",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
     "axios": "^0.16.2",
-    "express": "^4.15.4",
-    "node-env-file": "^0.1.8",
     "react": "^16.2.0",
-    "react-dom": "^0.14.7",
+    "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
     "react-router-redux": "^4.0.8",
+    "react-scripts": "1.1.1",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"
   },
-  "devDependencies": {
-    "babel-core": "^6.5.1",
-    "babel-loader": "^6.2.2",
-    "babel-preset-es2015": "^6.5.0",
-    "babel-preset-react": "^6.5.0",
-    "css-loader": "^0.23.1",
-    "foundation-sites": "^6.2.0",
-    "jquery": "^2.2.1",
-    "node-sass": "^3.13.1",
-    "sass-loader": "^3.2.3",
-    "script-loader": "^0.6.1",
-    "style-loader": "^0.13.0",
-    "webpack": "^1.12.13"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }

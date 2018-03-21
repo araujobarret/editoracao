@@ -10,8 +10,6 @@ import configureStore from './store/configureStore';
 import Login from './components/Login';
 import Menu from './components/Menu';
 
-// App css
-require('style!css!sass!applicationStyles');
 const store = configureStore();
 
 const history = syncHistoryWithStore(browserHistory, store);

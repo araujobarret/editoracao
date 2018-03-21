@@ -11,7 +11,8 @@ let requireLogin = function(nextState, replace, next) {
   let token = localStorage.getItem(TOKEN_LOCAL_STORAGE);
   // If is there a token, check if it is valid
   if(token) {
-    dispatch(startCheckToken(token));
+    console.log("Token", token);
+    //dispatch(startCheckToken(token));
   }
   else {
     replace('/');
