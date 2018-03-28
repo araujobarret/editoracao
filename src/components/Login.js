@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as Redux from 'react-redux';
 import * as actions from '../actions/UsuarioActions';
+import '../index.css';
 import { TOKEN_LOCAL_STORAGE } from '../constants/Api';
 
 class Login extends Component {

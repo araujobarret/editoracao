@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { ConnectedRouter as Router} from 'react-router-redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-//import Routes from './routes/index';
-
+import RaisedButton from 'material-ui/RaisedButton';
 import Login from './components/Login';
 import Menu from './components/Menu';
 
@@ -11,7 +11,10 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Login />
+        <MuiThemeProvider>
+          <Login />
+          <RaisedButton label="Default" />
+        </MuiThemeProvider>
       </Router>
     );
   }
