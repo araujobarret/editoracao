@@ -20,7 +20,7 @@ const usuario = (state = initialState, action) => {
       localStorage.removeItem(TOKEN_LOCAL_STORAGE);
       return {};
     case types.LOGIN_ERRO:
-      localStorage.removeItem(TOKEN_LOCAL_STORAGE);
+      //localStorage.removeItem(TOKEN_LOCAL_STORAGE);
       console.log(action.erro);
       return {
         erro: action.erro

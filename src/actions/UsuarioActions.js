@@ -56,15 +56,16 @@ export const startLogin = (login, senha) => {
         return status >= 200 && status <= 401; // default
       }
     }).then((res) => {
-        if(res.status === 200 && res.data._id && res.headers['x-auth']){
-          dispatch(setLogin(res.data.login, res.headers['x-auth']));
-        }
-        else {
-          dispatch(erroLogin(ERRO_AUTENTICACAO));
-        }
-      })
-      .catch((e) => {
-        dispatch(erroLogin(ERRO_COMUNICACAO));
-      });
+      if(res.status === 200 && res.data._id && res.headers['x-auth']){
+        dispatch(setLogin(res.data.login, res.headers['x-auth']));
+      }
+      else {
+        dispatch(erroLogin(ERRO_AUTENTICACAO));
+      }
+    })
+    .catch((e) => {
+      console.log("Erro", e);
+      dispatch(erroLogin(ERRO_COMUNICACAO));
+    });
   };
 };

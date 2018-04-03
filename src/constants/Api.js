@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000';
+const API_URL = 'https://editoracao.herokuapp.com';
 
 export const USUARIO_LOGIN = `${API_URL}/usuario/login`;
 export const USUARIO_CHECK_TOKEN = `${API_URL}/usuario/me`;
