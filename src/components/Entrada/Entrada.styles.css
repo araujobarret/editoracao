@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto|Source+Sans+Pro');
+
+.containerEntrada {
+  background-color: #1abc9c;
+  display: flex;
+  flex-direction: column;
+  padding-left: 4vw;
+  padding-top: 4vh;
+  padding-bottom: 4vh;
+  font: normal 1.0em Roboto;
+}
+
+.title, .question {
+  color: #2c3e50;
+  font-size: 1.2em;
+}
