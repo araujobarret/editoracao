@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import MinimalForm from '../Util/MinimalForm';
+import MinimalForm from '../util/MinimalForm';
 import './Entrada.styles.css';
 
 class Entrada extends Component {
   save = () => {
     console.log("Saving...");
   }
+
   render() {
     return (
       <section className="containerEntrada">
