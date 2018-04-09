@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import ReactCSSTransitionReplace from 'react-css-transition-replace';
 import TextField from 'material-ui/TextField';
 import 'font-awesome/css/font-awesome.min.css';
 import './MinimalForm.styles.css';
@@ -18,6 +19,7 @@ import './MinimalForm.styles.css';
 */
 
 class MinimalForm extends Component {
+
   constructor(props) {
     super(props);
     this.save = this.save.bind(this);
@@ -25,6 +27,7 @@ class MinimalForm extends Component {
     this.state = {
       currentIndex: 0,
       errorMessage: '',
+      value: '',
     }
 
     this.fields = props.fields;
@@ -33,10 +36,14 @@ class MinimalForm extends Component {
   next = () => {
     if(this.state.currentIndex !== this.props.fields.length-1) {
       let index = this.state.currentIndex;
-      if(this.refs.input.input.value.length >= 2) {
-        this.fields[index]['value'] = this.refs.input.input.value;
-        this.refs.input.input.value = "";
-        this.setState({currentIndex: index+1, errorMessage: ""});
+      if(this.refs["input"+index].input.value.length >= 2) {
+        this.fields[index]['value'] = this.refs["input"+index].input.value;
+        this.refs["input"+index].input.value = "";
+        this.setState({
+          currentIndex: index+1,
+          errorMessage: "",
+          value: this.fields[index+1].value ? this.fields[index+1].value : '',
+        });
       }
       else {
         this.setState({ errorMessage: this.props.fields[index].errorMessage })
@@ -49,9 +56,11 @@ class MinimalForm extends Component {
   }
 
   previous = () => {
+    let index = this.state.currentIndex;
     if(this.state.currentIndex !== 0) {
-      this.refs.input.input.value = this.fields[this.state.currentIndex-1].value;
+      this.refs["input"+index].input.value = this.fields[index-1].value;
       this.setState({
+        value: this.fields[index-1].value ? this.fields[index-1].value : '',
         currentIndex: this.state.currentIndex-1,
         errorMessage: ""});
     }
@@ -63,13 +72,16 @@ class MinimalForm extends Component {
   }
 
   renderItem = (index) => (
-    <div className="minimalFormContainer">
+    <div className="minimalFormContainer" key={"fieldKey" + index}>
 
       <strong className="label">{this.props.fields[index].label}</strong>
 
       <div className="inputContainer">
         <TextField
-          ref='input'
+          id="input"
+          ref={"input" + index}
+          value={this.state.value}
+          onChange={(e) => this.setState({value: e.target.value})}
           inputStyle={{color: "#2c3e50"}}
           underlineStyle={{borderColor: "#08aa8a"}}
           underlineFocusStyle={{borderColor: "#1abc9c"}}/>
@@ -91,16 +103,18 @@ class MinimalForm extends Component {
   renderPagination = () => (
     <div className="steps">
       { this.state.currentIndex != 0 ? this.renderBack() : null }
-      <span>Step {this.state.currentIndex+1} of { this.props.fields.length } </span>
+      <span>Passo {this.state.currentIndex+1} de { this.props.fields.length } </span>
     </div>
   )
 
   render() {
     return (
-      <section>
-        {this.renderItem(this.state.currentIndex)}
-        { this.props.showPagination ? this.renderPagination() : null}
-      </section>
+      <ReactCSSTransitionReplace transitionName="component" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
+        <section key={"keyIndex" + this.state.currentIndex}>
+          {this.renderItem(this.state.currentIndex)}
+          { this.props.showPagination ? this.renderPagination() : null}
+        </section>
+      </ReactCSSTransitionReplace>
     );
   }
 }

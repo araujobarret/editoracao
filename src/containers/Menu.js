@@ -85,7 +85,9 @@ const menuItemStyles = {
 };
 
 const mapStateToProps = (store) => {
-
+  return {
+    user: store.user
+  }
 }
 
 export default connect(mapStateToProps)(Menu);

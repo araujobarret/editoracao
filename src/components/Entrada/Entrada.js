@@ -25,7 +25,7 @@ class Entrada extends Component {
             },
             {
               type: "text2",
-              label: "Simple Component2",
+              label: "Qual é o número da Nota Fiscal?",
               maxLength: 20,
               errorMessage: 'The simple component2 must have data'
             },

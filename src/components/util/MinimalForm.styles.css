@@ -57,3 +57,26 @@
   font-size: 0.9em;
   margin-top: 2vh;
 }
+
+/* Transitions classes */
+.component-enter {
+  transform: translateX(-50px);
+  opacity: 0.01;
+}
+
+.component-enter.component-enter-active {
+  opacity: 1;
+  transform: translateX(0px);
+  transition: all 0.5s ease-in;
+}
+
+.component-leave {
+  transform: translateX(0px);
+  opacity: 1;
+}
+
+.component-leave.component-leave-active {
+  opacity: 0.01;
+  transform: translateX(50px);
+  transition: all 0.5s ease-out;
+}
