@@ -8,9 +8,20 @@ import registerServiceWorker from './registerServiceWorker';
 
 const store = configureStore();
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('root'));
+function renderApp() {
+  ReactDOM.render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.getElementById('root'));
+}
+
 registerServiceWorker();
+
+renderApp();
+
+if(module.hot) {
+  module.hot.accept('./App', () => {
+    renderApp();
+  });
+}

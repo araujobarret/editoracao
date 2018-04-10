@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+
 import ReactCSSTransitionReplace from 'react-css-transition-replace';
 import TextField from 'material-ui/TextField';
 import 'font-awesome/css/font-awesome.min.css';
@@ -68,6 +69,8 @@ class MinimalForm extends Component {
 
   // Last element trigger the onSubmit property
   save() {
+    let index = this.state.currentIndex;
+    this.fields[index]['value'] = this.refs["input"+index].input.value;
     this.props.onSave();
   }
 

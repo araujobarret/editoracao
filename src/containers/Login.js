@@ -26,12 +26,12 @@ class Login extends Component {
 
   componentWillReceiveProps(nextProps){
     let {dispatch} = this.props;
-    if(nextProps.usuario.erro != "") {
+    if(nextProps.usuario.erro != "") {      
       this.setState({isLoading: false, response: nextProps.usuario.erro});
       dispatch(actions.erroLogin(""));
     }
     else {
-
+      this.props.onAuth();
     }
   }
 

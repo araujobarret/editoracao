@@ -10,13 +10,13 @@ export const startCheckToken = (token) => {
       method: 'post',
       url: types.USUARIO_CHECK_TOKEN,
       data: {token},
-      headers: Object.assign({}, types.HTTP_HEADER, {'x-auth': token}),
+      headers: types.HTTP_HEADER,
       validateStatus: function (status) {
         return status >= 200 && status <= 401;
       }
     }).then((res) => {
-      if(res.status === 200 && res.data._id && res.headers['x-auth']){
-        dispatch(setLogin(res.data.login, token));
+      if(res.status === 204){
+        dispatch(setLogin(res.data, token));
       }
       else {
         // Remove o token
@@ -56,8 +56,8 @@ export const startLogin = (login, senha) => {
         return status >= 200 && status <= 401; // default
       }
     }).then((res) => {
-      if(res.status === 200 && res.data._id && res.headers['x-auth']){
-        dispatch(setLogin(res.data.login, res.headers['x-auth']));
+      if(res.status === 200){
+        dispatch(setLogin(null, res.data));
       }
       else {
         dispatch(erroLogin(ERRO_AUTENTICACAO));

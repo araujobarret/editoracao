@@ -5,14 +5,25 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Login from './containers/Login';
 import Menu from './containers/Menu';
 
-let isAuthenticated = true;
-
 class App extends Component {
-  render() {
+  constructor(props) {
+    super(props);
+    this.onAuthenticated = this.onAuthenticated.bind(this);
+
+    this.state = {
+      isAuthenticated: false
+    }
+  }
+
+  onAuthenticated() {
+    this.setState({isAuthenticated: true});
+  }
+
+  render() {    
     return (
       <Router>
         <MuiThemeProvider>
-          { isAuthenticated ? <Menu/> : <Login /> }
+          { this.state.isAuthenticated ? <Menu/> : <Login onAuth={this.onAuthenticated}/> }
         </MuiThemeProvider>
       </Router>
     );

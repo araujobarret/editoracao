@@ -13,5 +13,13 @@ export default function configureStore(initialState) {
     window.devToolsExtension ? window.devToolsExtension() : f => f
   ));
 
+  if(module.hot) {
+    module.hot.accept('../reducers/index', () => {
+      const nextRootReducer = require('../reducers/index').default;
+      const finalReducer = {...nextRootReducer, router: rootReducer};
+      store.replaceReducer(finalReducer);
+    })
+  }
+
   return store;
 }

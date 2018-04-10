@@ -6,9 +6,13 @@ import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import { List, ListItem } from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
 
 import { Home } from '../components/Home';
 import Entrada from '../components/Entrada/Entrada';
+import LocalAdd from '../components/Local/LocalAdd';
+
 import './Menu.styles.css';
 
 class Menu extends Component {
@@ -28,12 +32,6 @@ class Menu extends Component {
     // this.setState({value});
   }
 
-  // handleChange = (menuOpen) => {
-  //   let obj = {};
-  //   obj[menuOpen] = !this.state[menuOpen];
-  //   this.setState(obj);
-  // }
-
   render() {
     return (
       <Router>
@@ -49,8 +47,26 @@ class Menu extends Component {
             <Drawer
               docked={false}
               open={this.state.open}
-              containerStyle={{paddingTop: "5vh"}}
+              containerStyle={{paddingTop: "2vh"}}
               onRequestChange={(open) => this.setState({open})}>
+
+              <List>
+                <Subheader>Menu</Subheader>
+                <ListItem
+                  key="locais"
+                  style={menuItemHeaderStyles}
+                  primaryText="Locais"
+                  primaryTogglesNestedList={true}
+                  nestedItems={[
+                    <Link to="/local/novo" style={{ textDecoration: "none" }} key="localNovo" >
+                      <ListItem key={1} primaryText="Novo" style={subItemStyles}/>
+                    </Link>,
+                    <Link to="/local/lista" style={{ textDecoration: "none" }} key="localListar" >
+                      <ListItem key={2} primaryText="Listar" style={subItemStyles}/>
+                    </Link>,
+                  ]}/>
+              </List>
+
               <Link to="/" style={{ textDecoration: "none" }} >
                 <MenuItem style={menuItemStyles} onClick={this.handleClose}>Estoque</MenuItem>
               </Link>
@@ -58,19 +74,13 @@ class Menu extends Component {
                 <MenuItem style={menuItemStyles} onClick={this.handleClose}>Entrada de Livros</MenuItem>
               </Link>
 
-              <DropDownMenu value={this.state.locaisMenuOpen} onChange={this.handleChange}>
-                <MenuItem value={1} primaryText="Never" />
-                <MenuItem value={2} primaryText="Every Night" />
-                <MenuItem value={3} primaryText="Weeknights" />
-                <MenuItem value={4} primaryText="Weekends" />
-              </DropDownMenu>
-
             </Drawer>
           </div>
 
           <div className="body">
             <Route exact path="/" component={Home} />
             <Route path="/entrada" component={Entrada} />
+            <Route path="/local/novo" component={LocalAdd} />
           </div>
         </div>
       </Router>
@@ -79,9 +89,25 @@ class Menu extends Component {
 };
 
 const menuItemStyles = {
-  color: "#0c7563",
+  fontFamily: "Source Sans Pro",
   fontWeight: "bold",
-  paddingLeft: "4vw"
+  color: "#0c7563",
+  paddingLeft: "2vw"
+};
+
+const menuItemHeaderStyles = {
+  fontFamily: "Source Sans Pro",
+  fontWeight: "bold",
+  color: "#000000",
+  opacity: "0.54",
+  paddingLeft: "2vw"
+};
+
+const subItemStyles = {
+  fontFamily: "Source Sans Pro",
+  fontWeight: "bold",
+  color: "#0c7563",
+  paddingLeft: "3vw"
 };
 
 const mapStateToProps = (store) => {

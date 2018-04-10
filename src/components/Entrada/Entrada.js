@@ -5,6 +5,7 @@ import MinimalForm from '../util/MinimalForm';
 import './Entrada.styles.css';
 
 class Entrada extends Component {
+  
   save = () => {
     console.log("Saving...");
   }
@@ -12,7 +13,7 @@ class Entrada extends Component {
   render() {
     return (
       <section className="containerEntrada">
-        <span className="title">Vamos começar com a entrada de livros :)</span>
+        <span className="title">Vamos adicionar com a entrada de livros :)</span>
         <br/>
         <MinimalForm
           onSave={this.save}
