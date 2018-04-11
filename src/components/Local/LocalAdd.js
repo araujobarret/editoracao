@@ -14,14 +14,12 @@ class LocalAdd extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("NEXTPROPS", nextProps);
     if(nextProps.local.locais) {
       this.setState({isLoading: false});
     }
   }
 
   componentDidMount() {
-    console.log("Mounted");
     let {dispatch} = this.props;
     dispatch(startGetLocais());
   }
@@ -31,29 +29,39 @@ class LocalAdd extends Component {
     let {token} = this.props.usuario;
   }
 
-  render() {
-    return (
-      <section className="containerEntrada">
-        <span className="title">Vamos adicionar um novo local!</span>
+  _renderForm() {
+    if( this.state.isLoading ) {
+      return <Loader />;
+    }
+    else {
+      return (
         <MinimalForm
           onSave={this.save}
           fields={[
+            {
+              type: "datasource",
+              allowNull: true,
+              dataSource: this.props.local.locais,
+              dataSourceConfig: { value: '_id', text: 'descricao' },
+              label: "Este local está associado a algum outro local?",
+              maxLength: 20,
+            },
             {
               type: "text",
               label: "Qual o nome do local?",
               maxLength: 20,
               errorMessage: 'O nome do local deve ser preenchido'
-            },
-            {
-              type: "data-source",
-              dataset: [],
-              label: "Este local está associado a algum outro local?",
-              maxLength: 20,
-            },
+            }
           ]}/>
+      );
+    }
+  }
 
-          { this.state.isLoading ? <Loader /> : null }
-
+  render() {
+    return (
+      <section className="containerEntrada">
+        <span className="title">Vamos adicionar um novo local!</span>
+        { this._renderForm() }
       </section>
     );
   }
