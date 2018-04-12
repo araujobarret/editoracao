@@ -2,40 +2,33 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Snackbar from 'material-ui/Snackbar';
-import { startGetLocais, startAddLocal } from '../../actions/LocalActions';
+import { startAddAutor } from '../../actions/AutorActions';
 import MinimalForm from '../util/MinimalForm';
 import { Loader } from '../util/Loader';
 
-class LocalAdd extends Component {
+class AutorAdd extends Component {
 
   constructor(props) {
     super(props);
 
-    this.state = { isLoading: true, isSaved: false, response: ''};
+    this.state = { isLoading: false, isSaved: false, response: ''};
   }
 
   componentWillReceiveProps(nextProps) {
     let {isLoading, response, isSaved} = this.state
-    if(nextProps.local.locais) {
-      isLoading = false;
-    }
 
-    if(nextProps.local.erro) {
+    if(nextProps.autor.erro != "") {
       isLoading = false;
-      response = nextProps.local.erro;
+      response = nextProps.autor.erro;
     }
     else {
-      if(nextProps.local.mensagem) {
+      if(nextProps.autor.mensagem != "") {
         isLoading = false;
         isSaved = true;
       }
     }
-    this.setState({isLoading, isSaved, response});
-  }
 
-  componentDidMount() {
-    let {dispatch} = this.props;
-    dispatch(startGetLocais());
+    this.setState({isLoading, isSaved, response});
   }
 
   handleRequestClose = () => {
@@ -48,11 +41,10 @@ class LocalAdd extends Component {
     let {dispatch} = this.props;
     let {token} = this.props.usuario;
     this.setState({isLoading: true}, () => {
-      let local = {
-        _idSubLocal: fields[0]._id ? fields[0]._id : null,
-        descricao: fields[1].value
+      let autor = {
+        nome: fields[0].value
       };
-      dispatch(startAddLocal( local, token));
+      dispatch(startAddAutor( autor, token ));
     });
   }
 
@@ -67,18 +59,10 @@ class LocalAdd extends Component {
             onSave={this.save}
             fields={[
               {
-                type: "datasource",
-                allowNull: true,
-                dataSource: this.props.local.locais,
-                dataSourceConfig: { value: '_id', text: 'descricao' },
-                label: "Este local está associado a algum outro local?",
-                maxLength: 20,
-              },
-              {
                 type: "text",
-                label: "Qual o nome do local?",
+                label: "Qual o nome do autor?",
                 maxLength: 20,
-                errorMessage: 'O nome do local deve ser preenchido'
+                errorMessage: 'O nome do autor deve ser preenchido'
               }
             ]}/>
         );
@@ -89,7 +73,7 @@ class LocalAdd extends Component {
   render() {
     return (
       <section className="containerEntrada">
-        <span className="title">{ this.state.isSaved ? this.props.local.mensagem : 'Vamos adicionar um novo local!'}</span>
+        <span className="title">{ this.state.isSaved ? this.props.autor.mensagem : 'Vamos adicionar um novo autor!'}</span>
         { this._renderForm() }
 
         <Snackbar
@@ -106,8 +90,8 @@ class LocalAdd extends Component {
 const mapStateToProps = (store) => {
   return {
     usuario: store.usuario,
-    local: store.local
+    autor: store.autor
   }
 }
 
-export default connect(mapStateToProps)(LocalAdd);
+export default connect(mapStateToProps)(AutorAdd);

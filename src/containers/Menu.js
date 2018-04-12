@@ -13,6 +13,8 @@ import { Home } from '../components/Home';
 import Entrada from '../components/Entrada/Entrada';
 import LocalAdd from '../components/Local/LocalAdd';
 import LocalList from '../components/Local/LocalList';
+import AutorAdd from '../components/Autor/AutorAdd';
+import AutorList from '../components/Autor/AutorList';
 
 import './Menu.styles.css';
 
@@ -68,6 +70,22 @@ class Menu extends Component {
                   ]}/>
               </List>
 
+              <List>                
+                <ListItem
+                  key="autor"
+                  style={menuItemHeaderStyles}
+                  primaryText="Autores"
+                  primaryTogglesNestedList={true}
+                  nestedItems={[
+                    <Link to="/autor/novo" style={{ textDecoration: "none" }} key="autorNovo" >
+                      <ListItem key={1} primaryText="Novo" style={subItemStyles}/>
+                    </Link>,
+                    <Link to="/autor/lista" style={{ textDecoration: "none" }} key="autorListar" >
+                      <ListItem key={2} primaryText="Listar" style={subItemStyles}/>
+                    </Link>,
+                  ]}/>
+              </List>
+
               <Link to="/" style={{ textDecoration: "none" }} >
                 <MenuItem style={menuItemStyles} onClick={this.handleClose}>Estoque</MenuItem>
               </Link>
@@ -83,6 +101,8 @@ class Menu extends Component {
             <Route path="/entrada" component={Entrada} />
             <Route path="/local/novo" component={LocalAdd} />
             <Route path="/local/lista" component={LocalList} />
+            <Route path="/autor/novo" component={AutorAdd} />
+            <Route path="/autor/lista" component={AutorList} />
           </div>
         </div>
       </Router>
@@ -102,7 +122,7 @@ const menuItemHeaderStyles = {
   fontWeight: "bold",
   color: "#000000",
   opacity: "0.54",
-  paddingLeft: "2vw"
+  paddingLeft: "2vw",
 };
 
 const subItemStyles = {

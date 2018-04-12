@@ -1,19 +1,19 @@
 import * as types from '../constants/ActionTypes';
 
 const initialState = {
-  locais: null,
+  autores: null,
   mensagem: '',
   erro: ''
 }
 
-const local = (state = initialState, action) => {
+const autor = (state = initialState, action) => {
   switch(action.type){
-    case types.SET_LOCAIS:
+    case types.SET_AUTORES:
       return {
         ...initialState,
-        locais: action.locais,
+        autores: action.autores,
       }
-    case types.ADD_LOCAL:
+    case types.ADD_AUTOR:
       return {
         ...state,
         mensagem: action.mensagem
@@ -31,4 +31,4 @@ const local = (state = initialState, action) => {
   }
 }
 
-export default local;
+export default autor;

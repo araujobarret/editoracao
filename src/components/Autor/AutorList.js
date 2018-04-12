@@ -10,25 +10,26 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
-import { startGetLocais } from '../../actions/LocalActions';
+import { startGetAutores } from '../../actions/AutorActions';
 import { Loader } from '../util/Loader';
 
-class LocalList extends Component {
+class AutorList extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { isLoading: true };
+
+    this.state = { isLoading: true, };
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.local.locais) {
+    if(nextProps.autor.autores) {
       this.setState({isLoading: false});
     }
   }
 
   componentDidMount() {
     let {dispatch} = this.props;
-    dispatch(startGetLocais());
+    dispatch(startGetAutores());
   }
 
   _renderTable() {
@@ -36,10 +37,9 @@ class LocalList extends Component {
       return <Loader />;
     }
     else {
-      const tableRows = this.props.local.locais.map((local) =>
-        <TableRow key={local._id} style={{border: "none"}}>
-          <TableRowColumn style={text}>{ local.descricao }</TableRowColumn>
-          <TableRowColumn style={text}>{ local._idSubLocal ? local._idSubLocal.descricao : null }</TableRowColumn>
+      const tableRows = this.props.autor.autores.map((autor) =>
+        <TableRow key={autor._id} style={{border: "none"}}>
+          <TableRowColumn style={text}>{ autor.nome }</TableRowColumn>
         </TableRow>
       );
 
@@ -47,8 +47,7 @@ class LocalList extends Component {
         <Table style={{backgroundColor: "#1abc9c"}}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}  style={{border: "none"}}>
             <TableRow style={{border: "none"}}>
-              <TableHeaderColumn style={header}>Local</TableHeaderColumn>
-              <TableHeaderColumn style={header}>Local associado</TableHeaderColumn>
+              <TableHeaderColumn style={header}>Nome do autor</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false} >
@@ -83,8 +82,8 @@ const header = {
 
 const mapStateToProps = (store) => {
   return {
-    local: store.local
+    autor: store.autor
   }
 }
 
-export default connect(mapStateToProps)(LocalList);
+export default connect(mapStateToProps)(AutorList);
