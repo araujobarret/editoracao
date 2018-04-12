@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as types from '../constants/Api';
-import { SET_LOCAIS, ERRO } from '../constants/ActionTypes';
-import { ERRO_COMUNICACAO} from '../constants/MensagensLogin';
+import { SET_LOCAIS, ADD_LOCAL, ERRO } from '../constants/ActionTypes';
+import { ERRO_AUTENTICACAO, ERRO_COMUNICACAO} from '../constants/MensagensLogin';
 
 // Erro de autenticação
 export const erroLocal = (erro) => {
@@ -37,6 +37,39 @@ export const startGetLocais = () => {
         dispatch(erroLocal(ERRO_COMUNICACAO));
       }
     }).catch((e) => {
+      dispatch(erroLocal(ERRO_COMUNICACAO));
+    });
+  };
+}
+
+export const addLocal = (mensagem) => {
+ return {
+   type: ADD_LOCAL,
+   mensagem
+ }
+}
+
+//Salva um novo Local
+export const startAddLocal = (local, token) => {
+  return (dispatch, getState) => {
+    return axios({
+      method: 'post',
+      url: types.ADD_LOCAL,
+      data: local,
+      headers: types.GET_HTTP_HEADER(token),
+      validateStatus: function (status) {
+        return status >= 200 && status <= 401;
+      }
+    }).then((res) => {
+      console.log("res", res);
+      if(res.status === 200){
+        dispatch(addLocal('Local adicionado :)'));
+      }
+      else {
+        dispatch(erroLocal(ERRO_AUTENTICACAO));
+      }
+    }).catch((e) => {
+      console.log("Error", e);
       dispatch(erroLocal(ERRO_COMUNICACAO));
     });
   };

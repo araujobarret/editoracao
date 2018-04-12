@@ -39,7 +39,6 @@ class MinimalForm extends Component {
     if(this.state.currentIndex !== this.props.fields.length-1) {
       let index = this.state.currentIndex;
 
-      console.log("State", this.state);
       if(this.fields[index].type === "datasource") {
         // Check if the search is inputed but none data source was selected
         this.fields[index]['value'] = this.state._id === null ? null : this.state.value;
@@ -65,7 +64,6 @@ class MinimalForm extends Component {
       // Check the last field and call save
       this.save();
     }
-    console.log("Fields", this.fields);
   }
 
   previous = () => {
@@ -85,7 +83,7 @@ class MinimalForm extends Component {
   save() {
     let index = this.state.currentIndex;
     this.fields[index]['value'] = this.state.value;
-    this.props.onSave();
+    this.props.onSave(this.fields);
   }
 
   handleUpdateInput = (searchText) => {

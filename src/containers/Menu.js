@@ -12,6 +12,7 @@ import Subheader from 'material-ui/Subheader';
 import { Home } from '../components/Home';
 import Entrada from '../components/Entrada/Entrada';
 import LocalAdd from '../components/Local/LocalAdd';
+import LocalList from '../components/Local/LocalList';
 
 import './Menu.styles.css';
 
@@ -81,6 +82,7 @@ class Menu extends Component {
             <Route exact path="/" component={Home} />
             <Route path="/entrada" component={Entrada} />
             <Route path="/local/novo" component={LocalAdd} />
+            <Route path="/local/lista" component={LocalList} />
           </div>
         </div>
       </Router>

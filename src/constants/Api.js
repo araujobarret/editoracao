@@ -7,7 +7,15 @@ export const TOKEN_LOCAL_STORAGE = 'editoracao-x-auth';
 export const LOGIN_LOCAL_STORAGE = 'editoracao-login';
 
 export const GET_LOCAIS = `${API_URL}/local`;
+export const ADD_LOCAL = `${API_URL}/local`;
 
 export const HTTP_HEADER = {
   'Content-Type': 'application/json'
 };
+
+export const GET_HTTP_HEADER = (token) => {
+  return {
+    'Content-Type': 'application/json',
+    'Authorization': token
+  }
+}
