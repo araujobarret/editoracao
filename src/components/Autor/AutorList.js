@@ -75,9 +75,9 @@ const text = {
 
 const header = {
   ...text,
-  color: '#576574',
+  color: '#ffffff',
   fontSize: '1.1em',
-  fontWeight: 'bold',
+  fontWeight: 'normal',
 };
 
 const mapStateToProps = (store) => {
