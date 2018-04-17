@@ -16,6 +16,7 @@ const local = (state = initialState, action) => {
     case types.ADD_LOCAL:
       return {
         ...state,
+        erro: '',
         mensagem: action.mensagem
       }
       break;

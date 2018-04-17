@@ -66,6 +66,7 @@ export const startAddLocal = (local, token) => {
         dispatch(addLocal('Local adicionado :)'));
       }
       else {
+        console.log("Res Status", res.status);
         dispatch(erroLocal(ERRO_AUTENTICACAO));
       }
     }).catch((e) => {

@@ -83,7 +83,15 @@ class MinimalForm extends Component {
   save() {
     let index = this.state.currentIndex;
     this.fields[index]['value'] = this.state.value;
-    this.props.onSave(this.fields);
+    if(this.state.value != "") {
+      this.props.onSave(this.fields);
+    }
+    else if(this.props.fields[index].allowNull) {
+      this.props.onSave(this.fields);
+    }
+    else {
+      this.setState({errorMessage: "Este campo não pode ficar em branco"});
+    }
   }
 
   handleUpdateInput = (searchText) => {
@@ -128,6 +136,7 @@ class MinimalForm extends Component {
         underlineFocusStyle={{borderColor: "#1abc9c"}}/>;
     }
 
+    let icon = this.props.fields.length - 1 == index ? <span className="fa fa-check iconNext"></span> : <span className="fa fa-arrow-right iconNext"></span>;
     return (
       <div className="minimalFormContainer" key={"fieldKey" + index}>
 
@@ -138,7 +147,7 @@ class MinimalForm extends Component {
           { input }
 
           <div className="iconContainer" onClick={this.next}>
-            <span className="fa fa-arrow-right iconNext"></span>
+            { icon }
           </div>
         </div>
         <strong className="errorText">{this.state.errorMessage}</strong>
