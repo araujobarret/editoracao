@@ -37,7 +37,7 @@ class LocalList extends Component {
     }
     else {
       const tableRows = this.props.local.locais.map((local) =>
-        <TableRow key={local._id} style={{border: "none"}}>
+        <TableRow key={local._id} style={{borderColor: "#ffffff"}}>
           <TableRowColumn style={text}>{ local.descricao }</TableRowColumn>
           <TableRowColumn style={text}>{ local._idSubLocal ? local._idSubLocal.descricao : null }</TableRowColumn>
         </TableRow>
@@ -46,7 +46,7 @@ class LocalList extends Component {
       return (
         <Table style={{backgroundColor: "#1abc9c"}}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}  style={{border: "none"}}>
-            <TableRow style={{border: "none"}}>
+            <TableRow style={{borderColor: "#ffffff"}}>
               <TableHeaderColumn style={header}>Local</TableHeaderColumn>
               <TableHeaderColumn style={header}>Local associado</TableHeaderColumn>
             </TableRow>
@@ -76,7 +76,7 @@ const text = {
 
 const header = {
   ...text,
-  color: '#576574',
+  color: '#ffffff',
   fontSize: '1.1em',
   fontWeight: 'bold',
 };

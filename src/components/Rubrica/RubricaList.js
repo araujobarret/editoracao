@@ -10,26 +10,25 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
-import { startGetAutores } from '../../actions/AutorActions';
+import { startGetRubricas } from '../../actions/RubricaActions';
 import { Loader } from '../util/Loader';
 
-class AutorList extends Component {
+class RubricaList extends Component {
 
   constructor(props) {
     super(props);
-
-    this.state = { isLoading: true, };
+    this.state = { isLoading: true };
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.autor.autores) {
+    if(nextProps.rubrica.rubricas) {
       this.setState({isLoading: false});
     }
   }
 
   componentDidMount() {
     let {dispatch} = this.props;
-    dispatch(startGetAutores());
+    dispatch(startGetRubricas());
   }
 
   _renderTable() {
@@ -37,17 +36,21 @@ class AutorList extends Component {
       return <Loader />;
     }
     else {
-      const tableRows = this.props.autor.autores.map((autor) =>
-        <TableRow key={autor._id} style={{borderColor: "#ffffff"}}>
-          <TableRowColumn style={text}>{ autor.nome }</TableRowColumn>
+      const tableRows = this.props.rubrica.rubricas.map((rubrica) =>
+        <TableRow key={rubrica._id} style={{borderColor: "#ffffff"}}>
+          <TableRowColumn style={text}>{ rubrica.codigo }</TableRowColumn>
+          <TableRowColumn style={text}>{ rubrica.descricao }</TableRowColumn>
+          <TableRowColumn style={text}>{ rubrica.tipo }</TableRowColumn>
         </TableRow>
       );
 
       return (
         <Table style={{backgroundColor: "#1abc9c"}}>
-          <TableHeader displaySelectAll={false} adjustForCheckbox={false}  style={{border: "none"}}>
+          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow style={{borderColor: "#ffffff"}}>
-              <TableHeaderColumn style={header}>Nome do autor</TableHeaderColumn>
+              <TableHeaderColumn style={header}>Código</TableHeaderColumn>
+              <TableHeaderColumn style={header}>Descrição</TableHeaderColumn>
+              <TableHeaderColumn style={header}>Tipo</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false} >
@@ -77,13 +80,13 @@ const header = {
   ...text,
   color: '#ffffff',
   fontSize: '1.1em',
-  fontWeight: 'normal',
+  fontWeight: 'bold',
 };
 
 const mapStateToProps = (store) => {
   return {
-    autor: store.autor
+    rubrica: store.rubrica
   }
 }
 
-export default connect(mapStateToProps)(AutorList);
+export default connect(mapStateToProps)(RubricaList);

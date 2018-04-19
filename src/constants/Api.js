@@ -11,6 +11,8 @@ export const ADD_LOCAL = `${API_URL}/local`;
 
 export const AUTOR = `${API_URL}/autor`;
 
+export const RUBRICA = `${API_URL}/rubrica`;
+
 export const HTTP_HEADER = {
   'Content-Type': 'application/json'
 };

@@ -15,6 +15,8 @@ import LocalAdd from '../components/Local/LocalAdd';
 import LocalList from '../components/Local/LocalList';
 import AutorAdd from '../components/Autor/AutorAdd';
 import AutorList from '../components/Autor/AutorList';
+import RubricaAdd from '../components/Rubrica/RubricaAdd';
+import RubricaList from '../components/Rubrica/RubricaList';
 
 import './Menu.styles.css';
 
@@ -70,7 +72,7 @@ class Menu extends Component {
                   ]}/>
               </List>
 
-              <List>                
+              <List>
                 <ListItem
                   key="autor"
                   style={menuItemHeaderStyles}
@@ -85,6 +87,23 @@ class Menu extends Component {
                     </Link>,
                   ]}/>
               </List>
+
+              <List>
+                <ListItem
+                  key="autor"
+                  style={menuItemHeaderStyles}
+                  primaryText="Rubricas"
+                  primaryTogglesNestedList={true}
+                  nestedItems={[
+                    <Link to="/rubrica/novo" style={{ textDecoration: "none" }} key="rubricaNovo" >
+                      <ListItem key={1} primaryText="Nova" style={subItemStyles}/>
+                    </Link>,
+                    <Link to="/rubrica/lista" style={{ textDecoration: "none" }} key="rubricaListar" >
+                      <ListItem key={2} primaryText="Listar" style={subItemStyles}/>
+                    </Link>,
+                  ]}/>
+              </List>
+
 
               <Link to="/" style={{ textDecoration: "none" }} >
                 <MenuItem style={menuItemStyles} onClick={this.handleClose}>Estoque</MenuItem>
@@ -103,6 +122,8 @@ class Menu extends Component {
             <Route path="/local/lista" component={LocalList} />
             <Route path="/autor/novo" component={AutorAdd} />
             <Route path="/autor/lista" component={AutorList} />
+            <Route path="/rubrica/novo" component={RubricaAdd} />
+            <Route path="/rubrica/lista" component={RubricaList} />
           </div>
         </div>
       </Router>
