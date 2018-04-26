@@ -45,8 +45,9 @@ class AutorList extends Component {
     dispatch(startGetAutores());
   }
 
+  // Dispatch the action to send the data
   onSave = (autor) => {
-
+    this.setState({isLoading: true});        
   }
 
   handleDialog = () => {
@@ -96,25 +97,13 @@ class AutorList extends Component {
   }
 
   render() {
-    const actions = [
-      <FlatButton
-        label="Cancelar"
-        primary={true}
-        onClick={this.handleDialog}
-      />,
-      <FlatButton
-        label="Salvar"
-        primary={true}
-        onClick={this.handleDialog}
-      />,
-    ];
 
     return (
       <section className="containerTable">
         { this._renderTable() }
 
         <EditDialog visible={this.state.editDialogOpen} title="Autor"
-          onCancel={this.setState({editDialogOpen: false})} onSave={this.onSave}
+          onCancel={() => this.setState({editDialogOpen: false})} onSave={(autor) => this.onSave(autor)}
           fields={[
             {
               label: "Nome",
