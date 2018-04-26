@@ -19,6 +19,7 @@ import ModeEditIcon from 'material-ui/svg-icons/editor/mode-edit';
 
 import { startGetAutores } from '../../actions/AutorActions';
 import { Loader } from '../util/Loader';
+import EditDialog from '../Dialogs/EditDialog';
 
 class AutorList extends Component {
 
@@ -44,8 +45,8 @@ class AutorList extends Component {
     dispatch(startGetAutores());
   }
 
-  onRowSelected = (row) => {
-    //row[0]
+  onSave = (autor) => {
+
   }
 
   handleDialog = () => {
@@ -79,7 +80,7 @@ class AutorList extends Component {
 
       return (
         <Table style={{backgroundColor: "#1abc9c", overflow: "visible"}}
-          onRowSelection={this.onRowSelected} wrapperStyle={{paddingBottom: "20px", height: "88%"}}>
+          wrapperStyle={{paddingBottom: "20px", height: "88%"}}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false} style={{border: "none"}}>
             <TableRow style={{borderColor: "#ffffff"}}>
               <TableHeaderColumn style={header}>Nome do autor</TableHeaderColumn>
@@ -112,19 +113,17 @@ class AutorList extends Component {
       <section className="containerTable">
         { this._renderTable() }
 
-        <Dialog
-          title="Autor"
-          actions={actions}
-          modal={true}
-          open={this.state.editDialogOpen}>
-
-          <TextField
-            id="input"
-            value={this.state.autor.nome}
-            onChange={(e) => this.setState({autor: { ...this.state.autor, nome: e.target.value} })}
-            inputStyle={{color: "#2c3e50"}}/>
-
-        </Dialog>
+        <EditDialog visible={this.state.editDialogOpen} title="Autor"
+          onCancel={this.setState({editDialogOpen: false})} onSave={this.onSave}
+          fields={[
+            {
+              label: "Nome",
+              minLength: 5,
+              paramName: "nome",
+              value: this.state.autor ? this.state.autor.nome : null,
+              type: "text"
+            }
+          ]} />
       </section>
     );
   }
