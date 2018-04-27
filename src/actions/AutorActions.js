@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as types from '../constants/Api';
-import { SET_AUTORES, ADD_AUTOR, ERRO } from '../constants/ActionTypes';
+import { SET_AUTORES, ADD_AUTOR, UPDATE_AUTOR, ERRO } from '../constants/ActionTypes';
 import { ERRO_AUTENTICACAO, ERRO_COMUNICACAO} from '../constants/MensagensLogin';
 
 // Erro de autenticação
@@ -49,7 +49,7 @@ export const addAutor = (mensagem) => {
  }
 }
 
-//Salva um novo Local
+//Salva um novo Autor
 export const startAddAutor = (autor, token) => {
   return (dispatch, getState) => {
     return axios({
@@ -66,6 +66,29 @@ export const startAddAutor = (autor, token) => {
       }
       else {
         dispatch(erroAutor(ERRO_AUTENTICACAO));
+      }
+    }).catch((e) => {
+      dispatch(erroAutor(ERRO_COMUNICACAO));
+    });
+  };
+}
+
+// Atualiza um autor
+export const startUpdateAutor = (_id, params, token) => {
+  return (dispatch, getState) => {
+    return axios({
+      method: 'get',
+      url: types.AUTOR,
+      headers: types.HTTP_HEADER,
+      validateStatus: function (status) {
+        return status >= 200 && status <= 401;
+      }
+    }).then((res) => {
+      if(res.status === 200){
+        dispatch(setAutores(res.data));
+      }
+      else {
+        dispatch(erroAutor(ERRO_COMUNICACAO));
       }
     }).catch((e) => {
       dispatch(erroAutor(ERRO_COMUNICACAO));

@@ -9,15 +9,13 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-import Dialog from 'material-ui/Dialog';
-import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
+
 import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import ModeEditIcon from 'material-ui/svg-icons/editor/mode-edit';
 
-import { startGetAutores } from '../../actions/AutorActions';
+import { startGetAutores, startUpdateAutor } from '../../actions/AutorActions';
 import { Loader } from '../util/Loader';
 import EditDialog from '../Dialogs/EditDialog';
 
@@ -47,7 +45,9 @@ class AutorList extends Component {
 
   // Dispatch the action to send the data
   onSave = (autor) => {
-    this.setState({isLoading: true});        
+    let {dispatch} = this.props;
+    dispatch(startUpdateAutor());
+    this.setState({isLoading: true});
   }
 
   handleDialog = () => {
@@ -137,7 +137,8 @@ const header = {
 
 const mapStateToProps = (store) => {
   return {
-    autor: store.autor
+    autor: store.autor,
+    usuario: store.usuario
   }
 }
 

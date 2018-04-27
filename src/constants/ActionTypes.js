@@ -10,6 +10,7 @@ export const ADD_LOCAL = 'ADD_LOCAL';
 
 export const SET_AUTORES = 'SET_AUTORES';
 export const ADD_AUTOR = 'ADD_AUTOR';
+export const UPDATE_AUTOR = 'UPDATE_AUTOR';
 
 export const SET_RUBRICAS = 'SET_RUBRICAS';
 export const ADD_RUBRICA = 'ADD_RUBRICA';
