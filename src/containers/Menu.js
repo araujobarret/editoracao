@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
-import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import { List, ListItem } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
@@ -112,6 +111,10 @@ class Menu extends Component {
                 <MenuItem style={menuItemStyles} onClick={this.handleClose}>Entrada de Livros</MenuItem>
               </Link>
 
+              <Link to="/entrada" style={{ textDecoration: "none", alignSelf: "flex-end" }} >
+                <MenuItem style={menuItemStyles} onClick={() => console.log("SAIR ACIONADO")}>SAIR</MenuItem>
+              </Link>
+
             </Drawer>
           </div>
 
@@ -133,14 +136,12 @@ class Menu extends Component {
 
 const menuItemStyles = {
   fontFamily: "Source Sans Pro",
-  fontWeight: "bold",
   color: "#0c7563",
   paddingLeft: "2vw"
 };
 
 const menuItemHeaderStyles = {
   fontFamily: "Source Sans Pro",
-  fontWeight: "bold",
   color: "#000000",
   opacity: "0.54",
   paddingLeft: "2vw",
@@ -148,7 +149,6 @@ const menuItemHeaderStyles = {
 
 const subItemStyles = {
   fontFamily: "Source Sans Pro",
-  fontWeight: "bold",
   color: "#0c7563",
   paddingLeft: "3vw"
 };

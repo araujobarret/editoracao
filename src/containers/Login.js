@@ -9,7 +9,7 @@ import Snackbar from 'material-ui/Snackbar';
 
 import './Login.styles.css';
 
-import { TOKEN_LOCAL_STORAGE } from '../constants/Api';
+// import { TOKEN_LOCAL_STORAGE } from '../constants/Api';
 
 class Login extends Component {
 
@@ -25,13 +25,13 @@ class Login extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    let {dispatch} = this.props;    
-    if(nextProps.usuario.erro != "") {
+    let {dispatch} = this.props;
+    if(nextProps.usuario.erro !== "") {
       this.setState({isLoading: false, response: nextProps.usuario.erro});
       dispatch(actions.erroLogin(""));
     }
     else {
-      if(nextProps.usuario.token != "") {
+      if(nextProps.usuario.token !== "") {
         this.props.onAuth();
       }
     }

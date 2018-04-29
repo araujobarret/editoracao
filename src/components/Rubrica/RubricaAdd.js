@@ -17,12 +17,12 @@ class RubricaAdd extends Component {
   componentWillReceiveProps(nextProps) {
     let {isLoading, response, isSaved} = this.state
 
-    if(nextProps.rubrica.erro != "") {
+    if(nextProps.rubrica.erro !== "") {
       isLoading = false;
       response = nextProps.rubrica.erro;
     }
     else {
-      if(nextProps.rubrica.mensagem != "") {
+      if(nextProps.rubrica.mensagem !== "") {
         isLoading = false;
         isSaved = true;
       }

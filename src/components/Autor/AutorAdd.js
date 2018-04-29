@@ -17,12 +17,12 @@ class AutorAdd extends Component {
   componentWillReceiveProps(nextProps) {
     let {isLoading, response, isSaved} = this.state
 
-    if(nextProps.autor.erro != "") {
+    if(nextProps.autor.erro !== "") {
       isLoading = false;
       response = nextProps.autor.erro;
     }
     else {
-      if(nextProps.autor.mensagem != "") {
+      if(nextProps.autor.mensagem !== "") {
         isLoading = false;
         isSaved = true;
       }

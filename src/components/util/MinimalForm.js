@@ -83,7 +83,7 @@ class MinimalForm extends Component {
   save() {
     let index = this.state.currentIndex;
     this.fields[index]['value'] = this.state.value;
-    if(this.state.value != "") {
+    if(this.state.value !== "") {
       this.props.onSave(this.fields);
     }
     else if(this.props.fields[index].allowNull) {
@@ -111,7 +111,7 @@ class MinimalForm extends Component {
   renderItem = (index) => {
     let input;
 
-    if(this.props.fields[index].type == "datasource") {
+    if(this.props.fields[index].type === "datasource") {
       input = <AutoComplete
           id="input"
           searchText={this.state.value}
@@ -136,7 +136,7 @@ class MinimalForm extends Component {
         underlineFocusStyle={{borderColor: "#1abc9c"}}/>;
     }
 
-    let icon = this.props.fields.length - 1 == index ? <span className="fa fa-check iconNext"></span> : <span className="fa fa-arrow-right iconNext"></span>;
+    let icon = this.props.fields.length - 1 === index ? <span className="fa fa-check iconNext"></span> : <span className="fa fa-arrow-right iconNext"></span>;
     return (
       <div className="minimalFormContainer" key={"fieldKey" + index}>
 
@@ -163,7 +163,7 @@ class MinimalForm extends Component {
 
   renderPagination = () => (
     <div className="steps">
-      { this.state.currentIndex != 0 ? this.renderBack() : null }
+      { this.state.currentIndex !== 0 ? this.renderBack() : null }
       <span>Passo {this.state.currentIndex+1} de { this.props.fields.length } </span>
     </div>
   )

@@ -18,16 +18,20 @@ const autor = (state = initialState, action) => {
         ...state,
         mensagem: action.mensagem
       }
-      break;
+    case types.UPDATE_AUTOR:
+      return {
+        ...state,
+        autores: action.autores,
+        mensagem: "Autor atualizado"
+      }
     case types.ERRO:
       return {
         ...state,
+        mensagem: '',
         erro: action.erro
       }
-      break;
     default:
       return state;
-      break;
   }
 }
 

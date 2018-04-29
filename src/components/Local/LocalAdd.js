@@ -20,12 +20,12 @@ class LocalAdd extends Component {
       isLoading = false;
     }
 
-    if(nextProps.local.erro) {
+    if(nextProps.local.erro !== "") {
       isLoading = false;
       response = nextProps.local.erro;
     }
     else {
-      if(nextProps.local.mensagem) {
+      if(nextProps.local.mensagem !== "") {
         isLoading = false;
         isSaved = true;
       }

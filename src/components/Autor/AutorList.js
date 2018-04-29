@@ -10,7 +10,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
-import Badge from 'material-ui/Badge';
+import Snackbar from 'material-ui/Snackbar';
 import IconButton from 'material-ui/IconButton';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import ModeEditIcon from 'material-ui/svg-icons/editor/mode-edit';
@@ -27,15 +27,31 @@ class AutorList extends Component {
     this.state = {
       editDialogOpen: false,
       isLoading: true,
-      autor: null
+      autor: null,
+      response: ''
     };
 
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.autor.autores) {
-      this.setState({isLoading: false});
+
+    let {isLoading, response, editDialogOpen} = this.state
+
+    if(nextProps.autor.erro !== "") {
+      isLoading = false;
+      response = nextProps.autor.erro;
     }
+    else {
+      if(nextProps.autor.mensagem !== "") {
+        isLoading = false;
+        response = nextProps.autor.mensagem;
+        editDialogOpen = false;
+      }
+      else if(nextProps.autor.autores) {
+        isLoading = false;
+      }
+    }
+    this.setState({isLoading, response, editDialogOpen});
   }
 
   componentDidMount() {
@@ -46,7 +62,7 @@ class AutorList extends Component {
   // Dispatch the action to send the data
   onSave = (autor) => {
     let {dispatch} = this.props;
-    dispatch(startUpdateAutor());
+    dispatch(startUpdateAutor(autor['_id'], autor['0'].value, this.props.autor.autores, this.props.usuario.token));
     this.setState({isLoading: true});
   }
 
@@ -97,13 +113,13 @@ class AutorList extends Component {
   }
 
   render() {
-
     return (
       <section className="containerTable">
         { this._renderTable() }
 
         <EditDialog visible={this.state.editDialogOpen} title="Autor"
           onCancel={() => this.setState({editDialogOpen: false})} onSave={(autor) => this.onSave(autor)}
+          id={this.state.autor ? this.state.autor._id : null}
           fields={[
             {
               label: "Nome",
@@ -113,6 +129,13 @@ class AutorList extends Component {
               type: "text"
             }
           ]} />
+
+        <Snackbar
+          open={this.state.response.length > 0}
+          message={this.state.response}
+          autoHideDuration={2000}
+          onRequestClose={() => this.setState({response: ''})}
+        />
       </section>
     );
   }

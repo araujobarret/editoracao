@@ -1,6 +1,5 @@
 import * as types from '../constants/ActionTypes';
 import { LOGIN_LOCAL_STORAGE, TOKEN_LOCAL_STORAGE } from '../constants/Api';
-import axios from 'axios';
 
 const initialState = {
   login: '',
@@ -17,20 +16,16 @@ const usuario = (state = initialState, action) => {
         login: action.login,
         token: action.token
       };
-      break;
     case types.LOGOUT:
       localStorage.removeItem(TOKEN_LOCAL_STORAGE);
       return initialState;
-      break;
     case types.LOGIN_ERRO:
       return {
         ...state,
         erro: action.erro
       };
-      break;
     default:
       return state;
-      break;
   }
 }
 

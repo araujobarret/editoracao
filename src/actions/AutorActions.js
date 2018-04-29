@@ -73,19 +73,28 @@ export const startAddAutor = (autor, token) => {
   };
 }
 
+export const setUpdateAutor = (autores) => {
+  return {
+    type: UPDATE_AUTOR,
+    autores
+  }
+}
+
 // Atualiza um autor
-export const startUpdateAutor = (_id, params, token) => {
+export const startUpdateAutor = (_id, nome, autores, token,) => {
   return (dispatch, getState) => {
     return axios({
-      method: 'get',
-      url: types.AUTOR,
-      headers: types.HTTP_HEADER,
+      method: 'put',
+      url: types.AUTOR + "/" + _id,
+      headers: types.GET_HTTP_HEADER(token),
+      data: { nome },
       validateStatus: function (status) {
         return status >= 200 && status <= 401;
       }
     }).then((res) => {
       if(res.status === 200){
-        dispatch(setAutores(res.data));
+        autores = autores.map(autor => autor._id === res.data._id ? res.data : autor);
+        dispatch(setUpdateAutor(autores));
       }
       else {
         dispatch(erroAutor(ERRO_COMUNICACAO));

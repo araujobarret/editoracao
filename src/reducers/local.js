@@ -19,16 +19,13 @@ const local = (state = initialState, action) => {
         erro: '',
         mensagem: action.mensagem
       }
-      break;
     case types.ERRO:
       return {
         ...state,
         erro: action.erro
       }
-      break;
     default:
       return state;
-      break;
   }
 }
 

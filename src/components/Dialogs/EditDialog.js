@@ -34,8 +34,8 @@ class EditDialog extends Component {
   cancel = () => this.props.onCancel();
 
   save = () => {
-    // Validation for each field if it is correctly filled    
-    this.props.onSave(this.state);
+    // Validation for each field if it is correctly filled
+    this.props.onSave({_id: this.props.id, ...this.state});
   }
 
   renderFields = () => {

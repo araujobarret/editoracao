@@ -18,16 +18,13 @@ const rubrica = (state = initialState, action) => {
         ...state,
         mensagem: action.mensagem
       }
-      break;
     case types.ERRO:
       return {
         ...state,
         erro: action.erro
       }
-      break;
     default:
       return state;
-      break;
   }
 }
 
