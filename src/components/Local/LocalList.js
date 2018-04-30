@@ -59,7 +59,7 @@ class LocalList extends Component {
 
   onSave = (local) => {
     let {dispatch} = this.props;
-    
+
   }
 
   handleDialog = () => {
