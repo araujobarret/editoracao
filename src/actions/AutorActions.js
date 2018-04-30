@@ -81,7 +81,7 @@ export const setUpdateAutor = (autores) => {
 }
 
 // Atualiza um autor
-export const startUpdateAutor = (_id, nome, autores, token,) => {
+export const startUpdateAutor = (_id, nome, autores, token) => {
   return (dispatch, getState) => {
     return axios({
       method: 'put',

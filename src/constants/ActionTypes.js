@@ -7,6 +7,7 @@ export const ERRO = 'ERRO';
 
 export const SET_LOCAIS = 'SET_LOCAIS';
 export const ADD_LOCAL = 'ADD_LOCAL';
+export const UPDATE_LOCAL = 'UPDATE_LOCAL';
 
 export const SET_AUTORES = 'SET_AUTORES';
 export const ADD_AUTOR = 'ADD_AUTOR';

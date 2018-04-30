@@ -6,8 +6,7 @@ export const USUARIO_LOGOUT = `${API_URL}/usuario/logout`;
 export const TOKEN_LOCAL_STORAGE = 'editoracao-x-auth';
 export const LOGIN_LOCAL_STORAGE = 'editoracao-login';
 
-export const GET_LOCAIS = `${API_URL}/local`;
-export const ADD_LOCAL = `${API_URL}/local`;
+export const LOCAL = `${API_URL}/local`;
 
 export const AUTOR = `${API_URL}/autor`;
 
