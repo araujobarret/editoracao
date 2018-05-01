@@ -23,18 +23,11 @@ class Menu extends Component {
   constructor(props){
     super(props);
     this.state = {
-      open: false,
-      locaisMenuOpen: false,
+      open: false
     }
   }
 
   handleClose = () => this.setState({open: false});
-
-  handleChange = (event, index, value) => {
-    console.log("Event", event);
-    console.log("Value", value);
-    // this.setState({value});
-  }
 
   render() {
     return (
