@@ -19,6 +19,12 @@ const local = (state = initialState, action) => {
         erro: '',
         mensagem: action.mensagem
       }
+    case types.UPDATE_LOCAL:
+      return {
+        ...state,
+        locais: action.locais,
+        mensagem: "Local atualizado"
+      }
     case types.ERRO:
       return {
         ...state,

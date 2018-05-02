@@ -30,7 +30,6 @@ export const startGetLocais = () => {
         return status >= 200 && status <= 401;
       }
     }).then((res) => {
-      console.log("Res", res);
       if(res.status === 200){
         dispatch(setLocais(res.data));
       }
@@ -38,7 +37,6 @@ export const startGetLocais = () => {
         dispatch(erroLocal(ERRO_COMUNICACAO));
       }
     }).catch((e) => {
-      console.log("Error", e);
       dispatch(erroLocal(ERRO_COMUNICACAO));
     });
   };
@@ -84,7 +82,7 @@ export const setUpdateLocal = (locais) => {
 }
 
 // Atualiza um autor
-export const startUpdateLocal = (_id, params, locais, token) => {
+export const startUpdateLocal = (_id, params, locais, linkedData, token) => {
   return (dispatch, getState) => {
     return axios({
       method: 'put',
@@ -96,7 +94,16 @@ export const startUpdateLocal = (_id, params, locais, token) => {
       }
     }).then((res) => {
       if(res.status === 200){
-        locais = locais.map(local => local._id === res.data._id ? res.data : local);
+        // Update the array of Locais and setThe _idSubLocal with the correspondind data
+        locais = locais.map(local => {
+          if(local._id === res.data._id){
+            res.data._idSubLocal = linkedData;
+            return res.data;
+          }
+          else {
+            return local;
+          }
+        });
         dispatch(setUpdateLocal(locais));
       }
       else {

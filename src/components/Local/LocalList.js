@@ -15,7 +15,7 @@ import IconButton from 'material-ui/IconButton';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import ModeEditIcon from 'material-ui/svg-icons/editor/mode-edit';
 
-import { startGetLocais } from '../../actions/LocalActions';
+import { startGetLocais, startUpdateLocal } from '../../actions/LocalActions';
 import { Loader } from '../util/Loader';
 import EditDialog from '../Dialogs/EditDialog';
 
@@ -59,7 +59,22 @@ class LocalList extends Component {
 
   onSave = (local) => {
     let {dispatch} = this.props;
+    let data = {
+       descricao: local['0'].value,
+       _idSubLocal: local['1'].value ? local['1'].value._id : null
+    };
 
+    let linkedData = null;
+    // Check if exists a subLocal and fill with it if yes
+    if(local['1'].value) {
+      linkedData = {
+        _id: local['1'].value._id,
+        descricao: local['1'].value.descricao
+      }
+    }
+
+    dispatch(startUpdateLocal(local._id, data, this.props.local.locais, linkedData, this.props.usuario.token));
+    this.setState({isLoading: true});
   }
 
   handleDialog = () => {
@@ -172,7 +187,8 @@ const header = {
 
 const mapStateToProps = (store) => {
   return {
-    local: store.local
+    local: store.local,
+    usuario: store.usuario
   }
 }
 

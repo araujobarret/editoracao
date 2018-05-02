@@ -73,7 +73,13 @@ class EditDialog extends Component {
               this.setState({fields});
             }}
             onUpdateInput={(searchText) => {
-              fields[i].value[Object.values(this.state)[i].dataSourceConfig.text] = searchText;
+              if(fields[i].value) {
+                fields[i].value[Object.values(this.state)[i].dataSourceConfig.text] = searchText;
+              }
+              else {
+                fields[i]['value'] = {};
+                fields[i].value[Object.values(this.state)[i].dataSourceConfig.text] = searchText;
+              }
               this.setState({fields});
             }}
             filter={AutoComplete.fuzzyFilter}
