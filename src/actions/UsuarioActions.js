@@ -3,6 +3,21 @@ import * as types from '../constants/Api';
 import {LOGIN, LOGIN_ERRO, LOGOUT} from '../constants/ActionTypes';
 import {ERRO_AUTENTICACAO, ERRO_COMUNICACAO} from '../constants/MensagensLogin';
 
+// Erro de autenticação
+export const erroLogin = (erro) => {
+  return {
+    type: LOGIN_ERRO,
+    erro
+  }
+};
+
+// Efetua logout
+export const setLogout = () => {
+  return {
+    type: LOGOUT
+  };
+};
+
 // Checa se o token é valido
 export const startCheckToken = (token) => {
   return (dispatch, getState) => {
@@ -25,14 +40,6 @@ export const startCheckToken = (token) => {
       dispatch(erroLogin(ERRO_COMUNICACAO));
     });
   };
-};
-
-// Erro de autenticação
-export const erroLogin = (erro) => {
-  return {
-    type: LOGIN_ERRO,
-    erro
-  }
 };
 
 // Efetua login

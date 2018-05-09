@@ -38,8 +38,7 @@ class Menu extends Component {
                 title="Controle de Livros Rui Google Design"
                 iconClassNameRight="muidocs-icon-navigation-expand-more"
                 style={{flex: "1", backgroundColor: "#0c7563"}}
-                onLeftIconButtonClick={() => this.setState({open: !this.state.open})}
-              />
+                onLeftIconButtonClick={() => this.setState({open: !this.state.open})}/>
 
             <Drawer
               docked={false}
@@ -56,10 +55,10 @@ class Menu extends Component {
                   primaryTogglesNestedList={true}
                   nestedItems={[
                     <Link to="/local/novo" style={{ textDecoration: "none" }} key="localNovo" >
-                      <ListItem key={1} primaryText="Novo" style={subItemStyles}/>
+                      <ListItem key={1} primaryText="Novo" style={subItemStyles} onClick={this.handleClose}/>
                     </Link>,
                     <Link to="/local/lista" style={{ textDecoration: "none" }} key="localListar" >
-                      <ListItem key={2} primaryText="Listar" style={subItemStyles}/>
+                      <ListItem key={2} primaryText="Listar" style={subItemStyles} onClick={this.handleClose}/>
                     </Link>,
                   ]}/>
               </List>
@@ -72,10 +71,10 @@ class Menu extends Component {
                   primaryTogglesNestedList={true}
                   nestedItems={[
                     <Link to="/autor/novo" style={{ textDecoration: "none" }} key="autorNovo" >
-                      <ListItem key={1} primaryText="Novo" style={subItemStyles}/>
+                      <ListItem key={1} primaryText="Novo" style={subItemStyles} onClick={this.handleClose}/>
                     </Link>,
                     <Link to="/autor/lista" style={{ textDecoration: "none" }} key="autorListar" >
-                      <ListItem key={2} primaryText="Listar" style={subItemStyles}/>
+                      <ListItem key={2} primaryText="Listar" style={subItemStyles} onClick={this.handleClose}/>
                     </Link>,
                   ]}/>
               </List>
@@ -88,10 +87,10 @@ class Menu extends Component {
                   primaryTogglesNestedList={true}
                   nestedItems={[
                     <Link to="/rubrica/novo" style={{ textDecoration: "none" }} key="rubricaNovo" >
-                      <ListItem key={1} primaryText="Nova" style={subItemStyles}/>
+                      <ListItem key={1} primaryText="Nova" style={subItemStyles} onClick={this.handleClose}/>
                     </Link>,
                     <Link to="/rubrica/lista" style={{ textDecoration: "none" }} key="rubricaListar" >
-                      <ListItem key={2} primaryText="Listar" style={subItemStyles}/>
+                      <ListItem key={2} primaryText="Listar" style={subItemStyles} onClick={this.handleClose}/>
                     </Link>,
                   ]}/>
               </List>

@@ -4,6 +4,6 @@ import './Home.styles.css';
 
 export const Home = () => (
   <div className="imgContainer">
-    <img src={require('../assets/imgs/home.jpg')} />
+    <img alt="principal" src={require('../assets/imgs/home.jpg')} />
   </div>
 );
