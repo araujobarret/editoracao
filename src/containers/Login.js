@@ -1,61 +1,56 @@
 import React, { Component } from 'react';
 import * as Redux from 'react-redux';
-import * as actions from '../actions/UsuarioActions';
+import PropTypes from 'prop-types';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import LinearProgress from 'material-ui/LinearProgress';
 import Snackbar from 'material-ui/Snackbar';
 
+import * as actions from '../actions/UsuarioActions';
 import './Login.styles.css';
 
 // import { TOKEN_LOCAL_STORAGE } from '../constants/Api';
 
 class Login extends Component {
-
   constructor(props) {
     super(props);
     this.onLogin = this.onLogin.bind(this);
     this.state = {
-      errorEmail: "",
-      errorSenha: "",
+      errorEmail: '',
+      errorSenha: '',
       isLoading: false,
-      response: "",
+      response: '',
     };
   }
 
-  componentWillReceiveProps(nextProps){
-    let {dispatch} = this.props;
-    if(nextProps.usuario.erro !== "") {
-      this.setState({isLoading: false, response: nextProps.usuario.erro});
-      dispatch(actions.erroLogin(""));
-    }
-    else {
-      if(nextProps.usuario.token !== "") {
-        this.props.onAuth();
-      }
+  componentWillReceiveProps(nextProps) {
+    const { dispatch } = this.props;
+    if (nextProps.usuario.erro !== '') {
+      this.setState({ isLoading: false, response: nextProps.usuario.erro });
+      dispatch(actions.erroLogin(''));
+    } else if (nextProps.usuario.token !== '') {
+      this.props.onAuth();
     }
   }
 
-  onLogin(){
-    if(this.refs.email.input.value.length < 8) {
-      this.setState({errorEmail: "Email inválido"});
-    }
-    else if(this.refs.senha.input.value.length < 8) {
-      this.setState({errorSenha: "A senha precisa ter no mínimo 8 dígitos"});
-    }
-    else {
-      this.setState({isLoading: true, errorEmail: "", errorSenha: ""});
-      let {dispatch} = this.props;
-      let login = this.refs.email.input.value;
-      let senha = this.refs.senha.input.value;
+  onLogin() {
+    if (this.refs.email.input.value.length < 8) {
+      this.setState({ errorEmail: 'Email inválido' });
+    } else if (this.refs.senha.input.value.length < 8) {
+      this.setState({ errorSenha: 'A senha precisa ter no mínimo 8 dígitos' });
+    } else {
+      this.setState({ isLoading: true, errorEmail: '', errorSenha: '' });
+      const { dispatch } = this.props;
+      const login = this.refs.email.input.value;
+      const senha = this.refs.senha.input.value;
       dispatch(actions.startLogin(login, senha));
     }
   }
 
   handleRequestClose = () => {
     this.setState({
-      response: "",
+      response: '',
     });
   };
 
@@ -69,40 +64,44 @@ class Login extends Component {
           </div>
 
           <form onSubmit={this.onLogin}>
-            {this.state.isLoading ? <LinearProgress mode="indeterminate" color="#F1BB5B" style={{backgroundColor: "#0c7563"}}/> : null}
+            {this.state.isLoading ? <LinearProgress mode="indeterminate" color="#F1BB5B" style={{ backgroundColor: '#0c7563' }} /> : null}
 
             <div className="form-row">
               <TextField
-                ref='email'
-                inputStyle={{color: "#ffffff"}}
-                errorStyle={{color: "#ffffff"}}
-                floatingLabelFocusStyle={{color: "#ffffff"}}
-                floatingLabelShrinkStyle={{color: "#F1BB5B"}}
-                floatingLabelStyle={{color: "#fefefe"}}
-                underlineFocusStyle={{borderColor: "#F1BB5B"}}
+                ref="email"
+                inputStyle={{ color: '#ffffff' }}
+                errorStyle={{ color: '#ffffff' }}
+                floatingLabelFocusStyle={{ color: '#ffffff' }}
+                floatingLabelShrinkStyle={{ color: '#F1BB5B' }}
+                floatingLabelStyle={{ color: '#fefefe' }}
+                underlineFocusStyle={{ borderColor: '#F1BB5B' }}
                 errorText={this.state.errorEmail}
-                floatingLabelText="Email"/>
+                floatingLabelText="Email"
+              />
             </div>
 
             <div className="form-row">
               <TextField
-                ref='senha'
+                ref="senha"
                 type="password"
-                inputStyle={{color: "#ffffff"}}
-                errorStyle={{color: "#ffffff"}}
-                floatingLabelFocusStyle={{color: "#ffffff"}}
-                floatingLabelShrinkStyle={{color: "#F1BB5B"}}
-                floatingLabelStyle={{color: "#fefefe"}}
-                underlineFocusStyle={{borderColor: "#F1BB5B"}}
+                inputStyle={{ color: '#ffffff' }}
+                errorStyle={{ color: '#ffffff' }}
+                floatingLabelFocusStyle={{ color: '#ffffff' }}
+                floatingLabelShrinkStyle={{ color: '#F1BB5B' }}
+                floatingLabelStyle={{ color: '#fefefe' }}
+                underlineFocusStyle={{ borderColor: '#F1BB5B' }}
                 errorText={this.state.errorSenha}
-                floatingLabelText="Senha"/>
+                floatingLabelText="Senha"
+              />
             </div>
 
             <div className="form-row">
-              <RaisedButton label="Entrar"
+              <RaisedButton
+                label="Entrar"
                 disabled={this.state.isLoading}
-                style={{marginBottom: '20px'}}
-                onClick={() => this.onLogin()} />
+                style={{ marginBottom: '20px' }}
+                onClick={() => this.onLogin()}
+              />
             </div>
 
             <Snackbar
@@ -116,13 +115,18 @@ class Login extends Component {
       </div>
     );
   }
-};
-
-const mapStateToProps = (store) => {
-  return {
-    usuario: store.usuario
-  }
 }
+
+const mapStateToProps = store => ({
+  usuario: store.usuario,
+});
+
+Login.propTypes = {
+  /* eslint react/forbid-prop-types: 0 */
+  usuario: PropTypes.object.isRequired,
+  dispatch: PropTypes.any.isRequired,
+  onAuth: PropTypes.any.isRequired,
+};
 
 
 export default Redux.connect(mapStateToProps)(Login);

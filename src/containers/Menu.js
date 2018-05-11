@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
@@ -20,14 +20,14 @@ import RubricaList from '../components/Rubrica/RubricaList';
 import './Menu.styles.css';
 
 class Menu extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      open: false
-    }
+      open: false,
+    };
   }
 
-  handleClose = () => this.setState({open: false});
+  handleClose = () => this.setState({ open: false });
 
   render() {
     return (
@@ -35,16 +35,18 @@ class Menu extends Component {
         <div className="container">
           <div className="header">
             <AppBar
-                title="Controle de Livros Rui Google Design"
-                iconClassNameRight="muidocs-icon-navigation-expand-more"
-                style={{flex: "1", backgroundColor: "#0c7563"}}
-                onLeftIconButtonClick={() => this.setState({open: !this.state.open})}/>
+              title="Controle de Livros Rui Google Design"
+              iconClassNameRight="muidocs-icon-navigation-expand-more"
+              style={{ flex: '1', backgroundColor: '#0c7563' }}
+              onLeftIconButtonClick={() => this.setState({ open: !this.state.open })}
+            />
 
             <Drawer
               docked={false}
               open={this.state.open}
-              containerStyle={{paddingTop: "2vh"}}
-              onRequestChange={(open) => this.setState({open})}>
+              containerStyle={{ paddingTop: '2vh' }}
+              onRequestChange={open => this.setState({ open })}
+            >
 
               <List>
                 <Subheader>Menu</Subheader>
@@ -52,15 +54,16 @@ class Menu extends Component {
                   key="locais"
                   style={menuItemHeaderStyles}
                   primaryText="Locais"
-                  primaryTogglesNestedList={true}
+                  primaryTogglesNestedList
                   nestedItems={[
-                    <Link to="/local/novo" style={{ textDecoration: "none" }} key="localNovo" >
-                      <ListItem key={1} primaryText="Novo" style={subItemStyles} onClick={this.handleClose}/>
+                    <Link to="/local/novo" style={{ textDecoration: 'none' }} key="localNovo" >
+                      <ListItem key={1} primaryText="Novo" style={subItemStyles} onClick={this.handleClose} />
                     </Link>,
-                    <Link to="/local/lista" style={{ textDecoration: "none" }} key="localListar" >
-                      <ListItem key={2} primaryText="Listar" style={subItemStyles} onClick={this.handleClose}/>
+                    <Link to="/local/lista" style={{ textDecoration: 'none' }} key="localListar" >
+                      <ListItem key={2} primaryText="Listar" style={subItemStyles} onClick={this.handleClose} />
                     </Link>,
-                  ]}/>
+                  ]}
+                />
               </List>
 
               <List>
@@ -68,15 +71,16 @@ class Menu extends Component {
                   key="autor"
                   style={menuItemHeaderStyles}
                   primaryText="Autores"
-                  primaryTogglesNestedList={true}
+                  primaryTogglesNestedList
                   nestedItems={[
-                    <Link to="/autor/novo" style={{ textDecoration: "none" }} key="autorNovo" >
-                      <ListItem key={1} primaryText="Novo" style={subItemStyles} onClick={this.handleClose}/>
+                    <Link to="/autor/novo" style={{ textDecoration: 'none' }} key="autorNovo" >
+                      <ListItem key={1} primaryText="Novo" style={subItemStyles} onClick={this.handleClose} />
                     </Link>,
-                    <Link to="/autor/lista" style={{ textDecoration: "none" }} key="autorListar" >
-                      <ListItem key={2} primaryText="Listar" style={subItemStyles} onClick={this.handleClose}/>
+                    <Link to="/autor/lista" style={{ textDecoration: 'none' }} key="autorListar" >
+                      <ListItem key={2} primaryText="Listar" style={subItemStyles} onClick={this.handleClose} />
                     </Link>,
-                  ]}/>
+                  ]}
+                />
               </List>
 
               <List>
@@ -84,27 +88,30 @@ class Menu extends Component {
                   key="autor"
                   style={menuItemHeaderStyles}
                   primaryText="Rubricas"
-                  primaryTogglesNestedList={true}
+                  primaryTogglesNestedList
                   nestedItems={[
-                    <Link to="/rubrica/novo" style={{ textDecoration: "none" }} key="rubricaNovo" >
-                      <ListItem key={1} primaryText="Nova" style={subItemStyles} onClick={this.handleClose}/>
+                    <Link to="/rubrica/novo" style={{ textDecoration: 'none' }} key="rubricaNovo" >
+                      <ListItem key={1} primaryText="Nova" style={subItemStyles} onClick={this.handleClose} />
                     </Link>,
-                    <Link to="/rubrica/lista" style={{ textDecoration: "none" }} key="rubricaListar" >
-                      <ListItem key={2} primaryText="Listar" style={subItemStyles} onClick={this.handleClose}/>
+                    <Link to="/rubrica/lista" style={{ textDecoration: 'none' }} key="rubricaListar" >
+                      <ListItem key={2} primaryText="Listar" style={subItemStyles} onClick={this.handleClose} />
                     </Link>,
-                  ]}/>
+                  ]}
+                />
               </List>
 
 
-              <Link to="/" style={{ textDecoration: "none" }} >
+              <Link to="/" style={{ textDecoration: 'none' }} >
                 <MenuItem style={menuItemStyles} onClick={this.handleClose}>Estoque</MenuItem>
               </Link>
-              <Link to="/entrada" style={{ textDecoration: "none" }} >
-                <MenuItem style={menuItemStyles} onClick={this.handleClose}>Entrada de Livros</MenuItem>
+              <Link to="/entrada" style={{ textDecoration: 'none' }}>
+                <MenuItem style={menuItemStyles} onClick={this.handleClose}>
+                  Entrada de Livros
+                </MenuItem>
               </Link>
 
-              <Link to="/entrada" style={{ textDecoration: "none", alignSelf: "flex-end" }} >
-                <MenuItem style={menuItemStyles} onClick={() => console.log("SAIR ACIONADO")}>SAIR</MenuItem>
+              <Link to="/entrada" style={{ textDecoration: 'none', alignSelf: 'flex-end' }} >
+                <MenuItem style={menuItemStyles}>SAIR</MenuItem>
               </Link>
 
             </Drawer>
@@ -124,31 +131,30 @@ class Menu extends Component {
       </Router>
     );
   }
-};
+}
 
 const menuItemStyles = {
-  fontFamily: "Source Sans Pro",
-  color: "#0c7563",
-  paddingLeft: "2vw"
+  fontFamily: 'Source Sans Pro',
+  color: '#0c7563',
+  paddingLeft: '2vw',
 };
 
 const menuItemHeaderStyles = {
-  fontFamily: "Source Sans Pro",
-  color: "#000000",
-  opacity: "0.54",
-  paddingLeft: "2vw",
+  fontFamily: 'Source Sans Pro',
+  color: '#000000',
+  opacity: '0.54',
+  paddingLeft: '2vw',
 };
 
 const subItemStyles = {
-  fontFamily: "Source Sans Pro",
-  color: "#0c7563",
-  paddingLeft: "3vw"
+  fontFamily: 'Source Sans Pro',
+  color: '#0c7563',
+  paddingLeft: '3vw',
 };
 
-const mapStateToProps = (store) => {
-  return {
-    user: store.user
-  }
-}
+const mapStateToProps = store => ({
+  user: store.user,
+});
+
 
 export default connect(mapStateToProps)(Menu);

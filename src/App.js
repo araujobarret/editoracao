@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Login from './containers/Login';
@@ -11,19 +11,19 @@ class App extends Component {
     this.onAuthenticated = this.onAuthenticated.bind(this);
 
     this.state = {
-      isAuthenticated: false
-    }
+      isAuthenticated: false,
+    };
   }
 
   onAuthenticated() {
-    this.setState({isAuthenticated: true});
+    this.setState({ isAuthenticated: true });
   }
 
   render() {
     return (
       <Router>
         <MuiThemeProvider>
-          { this.state.isAuthenticated ? <Menu/> : <Login onAuth={this.onAuthenticated}/> }
+          { this.state.isAuthenticated ? <Menu /> : <Login onAuth={this.onAuthenticated} /> }
         </MuiThemeProvider>
       </Router>
     );
