@@ -92,6 +92,11 @@ class Login extends Component {
                 underlineFocusStyle={{ borderColor: '#F1BB5B' }}
                 errorText={this.state.errorSenha}
                 floatingLabelText="Senha"
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    this.onLogin();
+                  }
+                }}
               />
             </div>
 

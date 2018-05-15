@@ -7,6 +7,7 @@ module.exports = {
       "import"
     ],
     "rules": {
+      "linebreak-style": [0],
       "react/jsx-filename-extension": [0],
       "no-use-before-define": 0,
       "no-underscore-dangle": 0,
