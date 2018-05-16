@@ -3,36 +3,36 @@ import * as types from '../constants/ActionTypes';
 const initialState = {
   autores: null,
   mensagem: '',
-  erro: ''
-}
+  erro: '',
+};
 
 const autor = (state = initialState, action) => {
-  switch(action.type){
+  switch (action.type) {
     case types.SET_AUTORES:
       return {
         ...initialState,
         autores: action.autores,
-      }
+      };
     case types.ADD_AUTOR:
       return {
         ...state,
-        mensagem: action.mensagem
-      }
+        mensagem: action.mensagem,
+      };
     case types.UPDATE_AUTOR:
       return {
         ...state,
         autores: action.autores,
-        mensagem: "Autor atualizado"
-      }
+        mensagem: 'Autor atualizado',
+      };
     case types.ERRO:
       return {
         ...state,
         mensagem: '',
-        erro: action.erro
-      }
+        erro: action.erro,
+      };
     default:
       return state;
   }
-}
+};
 
 export default autor;

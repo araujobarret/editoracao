@@ -64,7 +64,7 @@ class Step1 extends Component {
 
   renderPagination = () => (
     <div className="steps">
-      <span>Passo { this.props.index + 1 } de 2 </span>
+      <span>Passo { this.props.index + 1 } de 3 </span>
     </div>
   )
 
@@ -135,7 +135,7 @@ class Step1 extends Component {
           />
         </div>
 
-        <div className="inputContainer">
+        <div className="inputContainer pagination">
           <strong className="label labelNext">{this.props.index !== 2 ? 'PRÓXIMO' : 'SALVAR'}</strong>
           <div className="iconContainer" onClick={this.next}>
             { icon }

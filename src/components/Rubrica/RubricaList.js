@@ -20,45 +20,44 @@ class RubricaList extends Component {
     this.state = { isLoading: true };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.rubrica.rubricas) {
-      this.setState({isLoading: false});
-    }
-  }
-
   componentDidMount() {
-    let {dispatch} = this.props;
+    const { dispatch } = this.props;
     dispatch(startGetRubricas());
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.rubrica.rubricas) {
+      this.setState({ isLoading: false });
+    }
+  }
+
   _renderTable() {
-    if( this.state.isLoading ) {
+    if (this.state.isLoading) {
       return <Loader />;
     }
-    else {
-      const tableRows = this.props.rubrica.rubricas.map((rubrica) =>
-        <TableRow key={rubrica._id} style={{borderColor: "#ffffff"}}>
-          <TableRowColumn style={text}>{ rubrica.codigo }</TableRowColumn>
-          <TableRowColumn style={text}>{ rubrica.descricao }</TableRowColumn>
-          <TableRowColumn style={text}>{ rubrica.tipo }</TableRowColumn>
-        </TableRow>
-      );
 
-      return (
-        <Table style={{backgroundColor: "#1abc9c"}}>
-          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-            <TableRow style={{borderColor: "#ffffff"}}>
-              <TableHeaderColumn style={header}>Código</TableHeaderColumn>
-              <TableHeaderColumn style={header}>Descrição</TableHeaderColumn>
-              <TableHeaderColumn style={header}>Tipo</TableHeaderColumn>
-            </TableRow>
-          </TableHeader>
-          <TableBody displayRowCheckbox={false} >
-            { tableRows }
-          </TableBody>
-        </Table>
-      );
-    }
+    const tableRows = this.props.rubrica.rubricas.map(rubrica => (
+      <TableRow key={rubrica._id} style={{ borderColor: '#ffffff' }}>
+        <TableRowColumn style={text}>{ rubrica.codigo }</TableRowColumn>
+        <TableRowColumn style={text}>{ rubrica.descricao }</TableRowColumn>
+        <TableRowColumn style={text}>{ rubrica.tipo }</TableRowColumn>
+      </TableRow>
+    ));
+
+    return (
+      <Table style={{ backgroundColor: '#1abc9c' }}>
+        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+          <TableRow style={{ borderColor: '#ffffff' }}>
+            <TableHeaderColumn style={header}>Código</TableHeaderColumn>
+            <TableHeaderColumn style={header}>Descrição</TableHeaderColumn>
+            <TableHeaderColumn style={header}>Tipo</TableHeaderColumn>
+          </TableRow>
+        </TableHeader>
+        <TableBody displayRowCheckbox={false} >
+          { tableRows }
+        </TableBody>
+      </Table>
+    );
   }
 
   render() {
@@ -83,10 +82,8 @@ const header = {
   fontWeight: 'bold',
 };
 
-const mapStateToProps = (store) => {
-  return {
-    rubrica: store.rubrica
-  }
-}
+const mapStateToProps = store => ({
+  rubrica: store.rubrica,
+});
 
 export default connect(mapStateToProps)(RubricaList);

@@ -15,3 +15,6 @@ export const UPDATE_AUTOR = 'UPDATE_AUTOR';
 
 export const SET_RUBRICAS = 'SET_RUBRICAS';
 export const ADD_RUBRICA = 'ADD_RUBRICA';
+
+export const SET_LIVROS = 'SET_LIVROS';
+export const SET_LIVROS_ASSUNTOS = 'SET_LIVROS_ASSUNTOS';

@@ -78,55 +78,56 @@ class LocalList extends Component {
   }
 
   handleDialog = () => {
-    this.setState({editDialogOpen: !this.state.editDialogOpen});
+    this.setState({ editDialogOpen: !this.state.editDialogOpen });
   }
 
   openEditDialog = (local) => {
-    this.setState({editDialogOpen: true, local});
+    this.setState({ editDialogOpen: true, local });
   }
 
   _renderTable() {
-    if( this.state.isLoading ) {
+    if (this.state.isLoading) {
       return <Loader />;
     }
-    else {
-      const tableRows = this.props.local.locais.map((local) =>
-        <TableRow key={local._id} style={{borderColor: "#ffffff"}}>
-          <TableRowColumn style={text}>{ local.descricao }</TableRowColumn>
 
-          <TableRowColumn style={text}>{ local._idSubLocal ? local._idSubLocal.descricao : null }</TableRowColumn>
+    const tableRows = this.props.local.locais.map(local => (
+      <TableRow key={local._id} style={{ borderColor: '#ffffff' }}>
+        <TableRowColumn style={text}>{ local.descricao }</TableRowColumn>
 
-          <TableRowColumn style={{...text, ...actionText, overflow: "visible"}}>
-            <div className="tooltipContainer">
-              <IconButton tooltip="Editar Local" onClick={() => this.openEditDialog(local)}>
-                <ModeEditIcon color={"#e2ecf7"} hoverColor={"#ffffff"}/>
-              </IconButton>
-              <IconButton tooltip="Apagar Local">
-                <DeleteIcon color={"#ff5252"} hoverColor={"#ffbaba"}/>
-              </IconButton>
-            </div>
-          </TableRowColumn>
+        <TableRowColumn style={text}>
+          { local._idSubLocal ? local._idSubLocal.descricao : null }
+        </TableRowColumn>
 
-        </TableRow>
-      );
+        <TableRowColumn style={{ ...text, ...actionText, overflow: 'visible' }}>
+          <div className="tooltipContainer">
+            <IconButton tooltip="Editar Local" onClick={() => this.openEditDialog(local)}>
+              <ModeEditIcon color="#e2ecf7" hoverColor="#ffffff" />
+            </IconButton>
+            <IconButton tooltip="Apagar Local">
+              <DeleteIcon color="#ff5252" hoverColor="#ffbaba" />
+            </IconButton>
+          </div>
+        </TableRowColumn>
 
-      return (
-        <Table style={{backgroundColor: "#1abc9c"}}>
-          <TableHeader displaySelectAll={false} adjustForCheckbox={false}  style={{border: "none"}}>
-            <TableRow style={{borderColor: "#ffffff"}}>
+      </TableRow>
+    ));
 
-              <TableHeaderColumn style={header}>Descrição</TableHeaderColumn>
-              <TableHeaderColumn style={header}>Local associado</TableHeaderColumn>
-              <TableHeaderColumn style={{...header, ...actionText}}>Ações</TableHeaderColumn>
+    return (
+      <Table style={{ backgroundColor: '#1abc9c' }}>
+        <TableHeader displaySelectAll={false} adjustForCheckbox={false} style={{ border: 'none' }}>
+          <TableRow style={{ borderColor: '#ffffff' }}>
 
-            </TableRow>
-          </TableHeader>
-          <TableBody displayRowCheckbox={false} >
-            { tableRows }
-          </TableBody>
-        </Table>
-      );
-    }
+            <TableHeaderColumn style={header}>Descrição</TableHeaderColumn>
+            <TableHeaderColumn style={header}>Local associado</TableHeaderColumn>
+            <TableHeaderColumn style={{ ...header, ...actionText }}>Ações</TableHeaderColumn>
+
+          </TableRow>
+        </TableHeader>
+        <TableBody displayRowCheckbox={false} >
+          { tableRows }
+        </TableBody>
+      </Table>
+    );
   }
 
   render() {
@@ -161,7 +162,7 @@ class LocalList extends Component {
           open={this.state.response.length > 0}
           message={this.state.response}
           autoHideDuration={2000}
-          onRequestClose={() => this.setState({response: ''})}
+          onRequestClose={() => this.setState({ response: '' })}
         />
       </section>
     );
@@ -175,7 +176,7 @@ const text = {
 };
 
 const actionText = {
-  textAlign: "right"
+  textAlign: 'right',
 };
 
 const header = {
@@ -185,11 +186,9 @@ const header = {
   fontWeight: 'normal',
 };
 
-const mapStateToProps = (store) => {
-  return {
-    local: store.local,
-    usuario: store.usuario
-  }
-}
+const mapStateToProps = store => ({
+  local: store.local,
+  usuario: store.usuario,
+});
 
 export default connect(mapStateToProps)(LocalList);

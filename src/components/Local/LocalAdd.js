@@ -45,44 +45,44 @@ class LocalAdd extends Component {
   };
 
   save = (fields) => {
-    let {dispatch} = this.props;
-    let {token} = this.props.usuario;
-    this.setState({isLoading: true}, () => {
-      let local = {
+    const { dispatch } = this.props;
+    const { token } = this.props.usuario;
+    this.setState({ isLoading: true }, () => {
+      const local = {
         _idSubLocal: fields[0]._id ? fields[0]._id : null,
         descricao: fields[1].value
       };
-      dispatch(startAddLocal( local, token));
+      dispatch(startAddLocal(local, token));
     });
   }
 
   _renderForm() {
-    if( this.state.isLoading ) {
+    if (this.state.isLoading) {
       return <Loader />;
     }
-    else {
-      if(!this.state.isSaved) {
-        return (
-          <MinimalForm
-            onSave={this.save}
-            fields={[
-              {
-                type: "datasource",
-                allowNull: true,
-                dataSource: this.props.local.locais,
-                dataSourceConfig: { value: '_id', text: 'descricao' },
-                label: "Este local está associado a algum outro local?",
-                maxLength: 20,
-              },
-              {
-                type: "text",
-                label: "Qual o nome do local?",
-                maxLength: 20,
-                errorMessage: 'O nome do local deve ser preenchido'
-              }
-            ]}/>
-        );
-      }
+
+    if (!this.state.isSaved) {
+      return (
+        <MinimalForm
+          onSave={this.save}
+          fields={[
+            {
+              type: 'datasource',
+              allowNull: true,
+              dataSource: this.props.local.locais,
+              dataSourceConfig: { value: '_id', text: 'descricao' },
+              label: 'Este local está associado a algum outro local?',
+              maxLength: 20,
+            },
+            {
+              type: 'text',
+              label: 'Qual o nome do local?',
+              maxLength: 20,
+              errorMessage: 'O nome do local deve ser preenchido',
+            },
+          ]}
+        />
+      );
     }
   }
 
@@ -103,11 +103,9 @@ class LocalAdd extends Component {
   }
 }
 
-const mapStateToProps = (store) => {
-  return {
-    usuario: store.usuario,
-    local: store.local
-  }
-}
+const mapStateToProps = store => ({
+  usuario: store.usuario,
+  local: store.local,
+});
 
 export default connect(mapStateToProps)(LocalAdd);

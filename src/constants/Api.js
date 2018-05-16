@@ -7,18 +7,15 @@ export const TOKEN_LOCAL_STORAGE = 'editoracao-x-auth';
 export const LOGIN_LOCAL_STORAGE = 'editoracao-login';
 
 export const LOCAL = `${API_URL}/local`;
-
 export const AUTOR = `${API_URL}/autor`;
-
 export const RUBRICA = `${API_URL}/rubrica`;
+export const LIVRO = `${API_URL}/livro`;
 
 export const HTTP_HEADER = {
-  'Content-Type': 'application/json'
+  'Content-Type': 'application/json',
 };
 
-export const GET_HTTP_HEADER = (token) => {
-  return {
-    'Content-Type': 'application/json',
-    'Authorization': token
-  }
-}
+export const GET_HTTP_HEADER = token => ({
+  'Content-Type': 'application/json',
+  Authorization: token,
+});

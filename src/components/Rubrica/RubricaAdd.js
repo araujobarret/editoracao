@@ -38,49 +38,49 @@ class RubricaAdd extends Component {
   };
 
   save = (fields) => {
-    let {dispatch} = this.props;
-    let {token} = this.props.usuario;
-    this.setState({isLoading: true}, () => {
-      let rubrica = {
+    const { dispatch } = this.props;
+    const { token } = this.props.usuario;
+    this.setState({ isLoading: true }, () => {
+      const rubrica = {
         codigo: fields[0].value,
         descricao: fields[1].value,
-        tipo: fields[2].value
+        tipo: fields[2].value,
       };
-      dispatch(startAddRubrica( rubrica, token ));
+      dispatch(startAddRubrica(rubrica, token));
     });
   }
 
   _renderForm() {
-    if( this.state.isLoading ) {
+    if (this.state.isLoading) {
       return <Loader />;
     }
-    else {
-      if(!this.state.isSaved) {
-        return (
-          <MinimalForm
-            onSave={this.save}
-            fields={[
-              {
-                type: "text",
-                label: "Qual o código da rubrica?",
-                maxLength: 20,
-                errorMessage: 'O código da rubrica deve ser preenchido'
-              },
-              {
-                type: "text",
-                label: "Descrição",
-                maxLength: 20,
-                allowNull: true
-              },
-              {
-                type: "text",
-                label: "Qual o tipo dessa rubrica",
-                maxLength: 10,
-                errorMessage: 'O tipo da rubrica inválido'
-              },
-            ]}/>
-        );
-      }
+
+    if (!this.state.isSaved) {
+      return (
+        <MinimalForm
+          onSave={this.save}
+          fields={[
+            {
+              type: 'text',
+              label: 'Qual o código da rubrica?',
+              maxLength: 20,
+              errorMessage: 'O código da rubrica deve ser preenchido',
+            },
+            {
+              type: 'text',
+              label: 'Descrição',
+              maxLength: 20,
+              allowNull: true,
+            },
+            {
+              type: 'text',
+              label: 'Qual o tipo dessa rubrica',
+              maxLength: 10,
+              errorMessage: 'O tipo da rubrica inválido',
+            },
+          ]}
+        />
+      );
     }
   }
 
@@ -101,11 +101,9 @@ class RubricaAdd extends Component {
   }
 }
 
-const mapStateToProps = (store) => {
-  return {
-    usuario: store.usuario,
-    rubrica: store.rubrica
-  }
-}
+const mapStateToProps = store => ({
+  usuario: store.usuario,
+  rubrica: store.rubrica,
+});
 
 export default connect(mapStateToProps)(RubricaAdd);

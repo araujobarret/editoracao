@@ -1,25 +1,21 @@
 import axios from 'axios';
 import * as types from '../constants/Api';
 import { SET_AUTORES, ADD_AUTOR, UPDATE_AUTOR, ERRO } from '../constants/ActionTypes';
-import { ERRO_AUTENTICACAO, ERRO_COMUNICACAO} from '../constants/MensagensLogin';
+import { ERRO_AUTENTICACAO, ERRO_COMUNICACAO } from '../constants/MensagensLogin';
 
 // Erro de autenticação
-export const erroAutor = (erro) => {
-  return {
-    type: ERRO,
-    erro
-  }
-};
+export const erroAutor = erro => ({
+  type: ERRO,
+  erro,
+});
 
-// Salva os locais no estado
-export const setAutores = (autores) => {
-  return {
-    type: SET_AUTORES,
-    autores,
-  };
-};
+// Salva os autores no estado
+export const setAutores = autores => ({
+  type: SET_AUTORES,
+  autores,
+});
 
-// Retorna os locais do sistema
+// Retorna os autores
 export const startGetAutores = () => {
   return (dispatch, getState) => {
     return axios({
