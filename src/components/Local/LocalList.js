@@ -31,50 +31,52 @@ class LocalList extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    let {isLoading, response, editDialogOpen} = this.state
-
-    if(nextProps.local.erro !== "") {
-      isLoading = false;
-      response = nextProps.local.erro;
-    }
-    else {
-      if(nextProps.local.mensagem !== "") {
-        isLoading = false;
-        response = nextProps.local.mensagem;
-        editDialogOpen = false;
-      }
-      else if(nextProps.local.locais) {
-        isLoading = false;
-      }
-    }
-
-    this.setState({isLoading, response, editDialogOpen});
-  }
-
   componentDidMount() {
-    let {dispatch} = this.props;
+    let { dispatch } = this.props;
     dispatch(startGetLocais());
   }
 
+  componentWillReceiveProps(nextProps) {
+    let { isLoading, response, editDialogOpen } = this.state
+
+    if (nextProps.local.erro !== '') {
+      isLoading = false;
+      response = nextProps.local.erro;
+    } else if (nextProps.local.mensagem !== '') {
+      isLoading = false;
+      response = nextProps.local.mensagem;
+      editDialogOpen = false;
+    } else if (nextProps.local.locais) {
+      isLoading = false;
+    }
+
+    this.setState({ isLoading, response, editDialogOpen });
+  }
+
   onSave = (local) => {
-    let {dispatch} = this.props;
-    let data = {
-       descricao: local['0'].value,
-       _idSubLocal: local['1'].value ? local['1'].value._id : null
+    let { dispatch } = this.props;
+    const data = {
+      descricao: local['0'].value,
+      _idSubLocal: local['1'].value ? local['1'].value._id : null,
     };
 
     let linkedData = null;
     // Check if exists a subLocal and fill with it if yes
-    if(local['1'].value) {
+    if (local['1'].value) {
       linkedData = {
         _id: local['1'].value._id,
-        descricao: local['1'].value.descricao
-      }
+        descricao: local['1'].value.descricao,
+      };
     }
 
-    dispatch(startUpdateLocal(local._id, data, this.props.local.locais, linkedData, this.props.usuario.token));
-    this.setState({isLoading: true});
+    dispatch(startUpdateLocal(
+      local._id,
+      data,
+      this.props.local.locais,
+      linkedData,
+      this.props.usuario.token,
+    ));
+    this.setState({ isLoading: true });
   }
 
   handleDialog = () => {
@@ -135,28 +137,32 @@ class LocalList extends Component {
       <section className="containerEntrada">
         { this._renderTable() }
 
-        <EditDialog visible={this.state.editDialogOpen} title="Autor"
-          onCancel={() => this.setState({editDialogOpen: false})} onSave={(local) => this.onSave(local)}
+        <EditDialog
+          visible={this.state.editDialogOpen}
+          title="Autor"
+          onCancel={() => this.setState({ editDialogOpen: false })}
+          onSave={local => this.onSave(local)}
           id={this.state.local ? this.state.local._id : null}
           fields={[
             {
-              label: "Descrição",
+              label: 'Descrição',
               minLength: 5,
-              paramName: "descricao",
+              paramName: 'descricao',
               value: this.state.local ? this.state.local.descricao : null,
-              type: "text"
+              type: 'text',
             },
             {
-              label: "Local Associado",
+              label: 'Local Associado',
               allowNull: true,
               minLength: 5,
-              paramName: "_idSubLocal",
+              paramName: '_idSubLocal',
               value: this.state.local ? this.state.local._idSubLocal : null,
-              type: "datasource",
+              type: 'datasource',
               dataSource: this.props.local.locais,
-              dataSourceConfig: { value: '_id', text: 'descricao' }
-            }
-          ]} />
+              dataSourceConfig: { value: '_id', text: 'descricao' },
+            },
+          ]}
+        />
 
         <Snackbar
           open={this.state.response.length > 0}

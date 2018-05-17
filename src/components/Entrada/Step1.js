@@ -143,6 +143,7 @@ class Step1 extends Component {
         </div>
 
         { this.renderPagination() }
+
       </section>
     );
   }
