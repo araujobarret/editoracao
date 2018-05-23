@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import TextField from 'material-ui/TextField';
 import AutoComplete from 'material-ui/AutoComplete';
@@ -8,7 +9,6 @@ import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import AddCircleIcon from 'material-ui/svg-icons/content/add-circle';
 import RemoveCircleIcon from 'material-ui/svg-icons/content/remove-circle';
-
 import 'font-awesome/css/font-awesome.min.css';
 
 import './Entrada.styles.css';
@@ -46,8 +46,6 @@ class Step2 extends Component {
 
   /* eslint no-unused-vars: 0 */
   handleNewRequest = (chosenOne, index) => {
-    console.log("ChosenOne", chosenOne);
-    console.log("index", index);
     this.setState({ livro: chosenOne });
     // const label = this.props.livros[this.state.currentIndex].dataSourceConfig;
     // this.setState({
@@ -118,7 +116,7 @@ class Step2 extends Component {
         </section>
       ));
     } else {
-      for(let i = 0; i < this.state.livros.length; i++) {
+      for (let i = 0; i < this.state.livros.length; i += 1) {
         list.push((
           <section>
             <div className="inputContainer listContainer">
@@ -219,7 +217,6 @@ class Step2 extends Component {
         </div>
 
         { this.renderPagination() }
-
       </section>
     );
   }
