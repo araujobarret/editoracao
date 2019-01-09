@@ -9,9 +9,11 @@ import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import AddCircleIcon from 'material-ui/svg-icons/content/add-circle';
 import RemoveCircleIcon from 'material-ui/svg-icons/content/remove-circle';
+import FiberNewIcon from 'material-ui/svg-icons/av/fiber-new';
 import 'font-awesome/css/font-awesome.min.css';
 
 import './Entrada.styles.css';
+import EditDialog from '../Dialogs/EditDialog';
 
 class Step2 extends Component {
   constructor(props) {
@@ -20,6 +22,7 @@ class Step2 extends Component {
       livro: null,
       livros: [],
       searchText: '',
+      newDialogOpen: false,
     };
   }
 
@@ -54,7 +57,7 @@ class Step2 extends Component {
     // });
   };
 
-  addLivro = () => {
+  addLivro() {
     if (this.state.livro !== null &&
     this.state.quantidade.length > 0 &&
     this.state.valor.length > 0) {
@@ -72,6 +75,10 @@ class Step2 extends Component {
         valor: '',
       });
     }
+  }
+
+  newLivro() {
+
   }
 
   removeLivro(index) {
@@ -123,8 +130,8 @@ class Step2 extends Component {
               <span className="listItem">{this.state.livros[i].titulo}</span>
               <span className="listItem">{this.state.livros[i].quantidade}</span>
               <span className="listItem">{Number(this.state.livros[i].valor).toFixed(2).replace('.', ',')}</span>
-              <IconButton tooltip="Remover livro">
-                <RemoveCircleIcon color="#ff5252" hoverColor="#ffbaba" onClick={() => this.removeLivro(i)} />
+              <IconButton tooltip="Remover livro" onClick={() => this.removeLivro(i)}>
+                <RemoveCircleIcon color="#ff5252" hoverColor="#ffbaba" />
               </IconButton>
             </div>
             <Divider />
@@ -199,8 +206,20 @@ class Step2 extends Component {
             maxLength="10"
           />
 
-          <IconButton tooltip="Adicionar livro" style={{ marginLeft: '20px', marginTop: '20px' }}>
-            <AddCircleIcon color="#ff5252" hoverColor="#ffbaba" onClick={this.addLivro} />
+          <IconButton
+            tooltip="Adicionar livro"
+            style={{ marginLeft: '20px', marginTop: '20px' }}
+            onClick={ this.addLivro.bind(this) }
+          >
+            <AddCircleIcon color="#ff5252" hoverColor="#ffbaba" />
+          </IconButton>
+
+          <IconButton
+            tooltip="Novo livro"
+            style={{ marginLeft: '20px', marginTop: '20px' }}
+            onClick={() => this.setState({ newDialogOpen: true })}
+          >
+            <FiberNewIcon color="#eeee55" hoverColor="#ffbaba" />
           </IconButton>
         </div>
 
@@ -217,6 +236,23 @@ class Step2 extends Component {
         </div>
 
         { this.renderPagination() }
+
+        <EditDialog
+          visible={this.state.newDialogOpen}
+          title="Novo Livro"
+          onCancel={() => this.setState({ newDialogOpen: false })}
+          onSave={livro => this.onSaveLivro(livro)}
+          id="newLivro"
+          fields={[
+            {
+              label: 'Nome',
+              minLength: 5,
+              paramName: 'nome',
+              value: this.state.autor ? this.state.autor.nome : null,
+              type: 'text',
+            },
+          ]}
+        />
       </section>
     );
   }

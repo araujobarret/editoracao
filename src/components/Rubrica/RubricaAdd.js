@@ -7,28 +7,27 @@ import MinimalForm from '../util/MinimalForm';
 import { Loader } from '../util/Loader';
 
 class RubricaAdd extends Component {
-
   constructor(props) {
     super(props);
 
-    this.state = { isLoading: false, isSaved: false, response: ''};
+    this.state = { isLoading: false, isSaved: false, response: '' };
   }
 
   componentWillReceiveProps(nextProps) {
-    let {isLoading, response, isSaved} = this.state
+    let { isLoading, response, isSaved } = this.state;
 
-    if(nextProps.rubrica.erro !== "") {
+    if (nextProps.rubrica.erro !== '') {
       isLoading = false;
       response = nextProps.rubrica.erro;
     }
     else {
-      if(nextProps.rubrica.mensagem !== "") {
+      if (nextProps.rubrica.mensagem !== '') {
         isLoading = false;
         isSaved = true;
       }
     }
 
-    this.setState({isLoading, isSaved, response});
+    this.setState({ isLoading, isSaved, response} );
   }
 
   handleRequestClose = () => {

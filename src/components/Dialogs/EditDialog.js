@@ -40,23 +40,22 @@ class EditDialog extends Component {
   }
 
   renderFields = () => {
-    let items = [];
+    const items = [];
 
-    for(let i = 0; i < this.props.fields.length; i++) {
-      if(this.props.fields[i].type === "text") {
-        items.push(
-          <TextField
-            floatingLabelText={Object.values(this.state)[i].label}
-            value={Object.values(this.state)[i].value}
-            onChange={(e) => {
-              let fields = this.state;
-              fields[i].value = e.target.value;
-              this.setState({...fields});
-            }}
-            key={"inputKey_" + this.props.fields[i].label}
-            id={"inputId_" + this.props.fields[i].label}
-            inputStyle={{color: "#2c3e50"}}/>
-        );
+    for (let i = 0; i < this.props.fields.length; i++) {
+      if (this.props.fields[i].type === 'text') {
+        items.push(<TextField
+          floatingLabelText={Object.values(this.state)[i].label}
+          value={Object.values(this.state)[i].value}
+          onChange={(e) => {
+            const fields = this.state;
+            fields[i].value = e.target.value;
+            this.setState({ ...fields });
+          }}
+          key={"inputKey_" + this.props.fields[i].label}
+          id={"inputId_" + this.props.fields[i].label}
+          inputStyle={{ color: '#2c3e50' }}
+        />);
       }
       else {
         let label = this.props.fields[i].dataSourceConfig;
@@ -70,24 +69,25 @@ class EditDialog extends Component {
             onNewRequest={(chosenOne, index) => {
               fields[i].value[Object.values(this.state)[i].dataSourceConfig.text] = chosenOne[label.text];
               fields[i].value[Object.values(this.state)[i].dataSourceConfig.value] = chosenOne[label.value];
-              this.setState({fields});
+              this.setState({ fields });
             }}
             onUpdateInput={(searchText) => {
-              if(fields[i].value) {
+              if (fields[i].value) {
                 fields[i].value[Object.values(this.state)[i].dataSourceConfig.text] = searchText;
               }
               else {
                 fields[i]['value'] = {};
                 fields[i].value[Object.values(this.state)[i].dataSourceConfig.text] = searchText;
               }
-              this.setState({fields});
+              this.setState({ fields });
             }}
             filter={AutoComplete.fuzzyFilter}
             openOnFocus={true}
             maxSearchResults={10}
             dataSource={this.props.fields[i].dataSource}
-            dataSourceConfig={this.props.fields[i].dataSourceConfig}/>
-          );
+            dataSourceConfig={this.props.fields[i].dataSourceConfig}
+          />
+        );
       }
     }
     return items;
@@ -99,14 +99,15 @@ class EditDialog extends Component {
         title={this.props.title}
         actions={this.actions}
         modal={true}
-        open={this.props.visible}>
+        open={this.props.visible}
+      >
 
         <div className="container">
           {this.renderFields()}
         </div>
 
       </Dialog>
-    )
+    );
   }
 }
 
