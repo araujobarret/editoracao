@@ -6,43 +6,35 @@ import AutoComplete from 'material-ui/AutoComplete';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 
+import EditAutoComplete from './EditAutoComplete';
+
 class EditDialog extends Component {
   constructor(props) {
     super(props);
 
     this.actions = [
-      <FlatButton
-        label="Cancelar"
-        primary={true}
-        onClick={this.cancel}
-      />,
-      <FlatButton
-        label="Salvar"
-        primary={true}
-        onClick={this.save}
-      />,
+      <FlatButton label="Cancelar" primary onClick={this.cancel} />,
+      <FlatButton label="Salvar" primary onClick={this.save} />,
     ];
 
-    this.state = {
-      ...props.fields
-    }
+    this.state = { ...props.fields };
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({...nextProps.fields});
+    this.setState({ ...nextProps.fields });
   }
 
   cancel = () => this.props.onCancel();
 
   save = () => {
     // Validation for each field if it is correctly filled
-    this.props.onSave({_id: this.props.id, ...this.state});
+    this.props.onSave({ id: this.props.id, ...this.state });
   }
 
   renderFields = () => {
     const items = [];
 
-    for (let i = 0; i < this.props.fields.length; i++) {
+    for (let i = 0; i < this.props.fields.length; i += 1) {
       if (this.props.fields[i].type === 'text') {
         items.push(<TextField
           floatingLabelText={Object.values(this.state)[i].label}
@@ -52,42 +44,27 @@ class EditDialog extends Component {
             fields[i].value = e.target.value;
             this.setState({ ...fields });
           }}
-          key={"inputKey_" + this.props.fields[i].label}
-          id={"inputId_" + this.props.fields[i].label}
+          key={`inputKey_${this.props.fields[i].label}`}
+          id={`inputId_${this.props.fields[i].label}`}
           inputStyle={{ color: '#2c3e50' }}
         />);
-      }
-      else {
-        let label = this.props.fields[i].dataSourceConfig;
-        let fields = this.state;
-        items.push(
-          <AutoComplete
-            floatingLabelText={Object.values(this.state)[i].label}
-            key={"inputKey_" + this.props.fields[i].label}
-            id={"inputId_" + this.props.fields[i].label}
-            searchText={Object.values(this.state)[i].value ? Object.values(this.state)[i].value[Object.values(this.state)[i].dataSourceConfig.text] : ''}
-            onNewRequest={(chosenOne, index) => {
-              fields[i].value[Object.values(this.state)[i].dataSourceConfig.text] = chosenOne[label.text];
-              fields[i].value[Object.values(this.state)[i].dataSourceConfig.value] = chosenOne[label.value];
-              this.setState({ fields });
-            }}
-            onUpdateInput={(searchText) => {
-              if (fields[i].value) {
-                fields[i].value[Object.values(this.state)[i].dataSourceConfig.text] = searchText;
-              }
-              else {
-                fields[i]['value'] = {};
-                fields[i].value[Object.values(this.state)[i].dataSourceConfig.text] = searchText;
-              }
-              this.setState({ fields });
-            }}
-            filter={AutoComplete.fuzzyFilter}
-            openOnFocus={true}
-            maxSearchResults={10}
-            dataSource={this.props.fields[i].dataSource}
-            dataSourceConfig={this.props.fields[i].dataSourceConfig}
-          />
-        );
+      } else if (this.props.fields[i].type === 'dynamic') {
+        return null;
+      } else {
+        const fields = this.state;
+        items.push(<EditAutoComplete
+          field={this.props.fields[i]}
+          state={this.state[i]}
+          index={i}
+          onNewRequest={(field, index) => {
+            fields[index] = field;
+            this.setState({ fields });
+          }}
+          onUpdateInput={(field, index) => {
+            fields[index] = field;
+            this.setState({ fields });
+          }}
+        />);
       }
     }
     return items;
@@ -114,7 +91,7 @@ class EditDialog extends Component {
 EditDialog.propTypes = {
   visible: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
-  fields: PropTypes.array.isRequired
+  fields: PropTypes.array.isRequired,
 };
 
 export default EditDialog;
