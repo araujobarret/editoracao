@@ -15,7 +15,7 @@ class LocalAdd extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let {isLoading, response, isSaved} = this.state
+    let {isLoading, response, isSaved} = this.state;
     if(nextProps.local.locais) {
       isLoading = false;
     }
@@ -34,7 +34,7 @@ class LocalAdd extends Component {
   }
 
   componentDidMount() {
-    let {dispatch} = this.props;
+    let { dispatch } = this.props;
     dispatch(startGetLocais());
   }
 

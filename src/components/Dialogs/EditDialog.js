@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import TextField from 'material-ui/TextField';
-import AutoComplete from 'material-ui/AutoComplete';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 
 import EditAutoComplete from './EditAutoComplete';
+import DynamicAutoComplete from './DynamicAutoComplete';
 
 class EditDialog extends Component {
   constructor(props) {
@@ -49,10 +49,16 @@ class EditDialog extends Component {
           inputStyle={{ color: '#2c3e50' }}
         />);
       } else if (this.props.fields[i].type === 'dynamic') {
-        return null;
+        items.push(<DynamicAutoComplete
+          url={this.props.fields[i].url}
+          key={`inputKey_${this.props.fields[i].label}`}
+          dataSourceConfig={this.props.fields[i]}
+          label={this.props.fields[i].label}
+        />);
       } else {
         const fields = this.state;
         items.push(<EditAutoComplete
+          key={`inputKey_${this.props.fields[i].label}`}
           field={this.props.fields[i]}
           state={this.state[i]}
           index={i}

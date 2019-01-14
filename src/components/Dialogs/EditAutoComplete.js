@@ -14,17 +14,24 @@ export default class EditAutoComplete extends Component {
         id={`inputId_${this.props.field.label}`}
         searchText={this.state.value ? this.state.value[this.state.dataSourceConfig.text] : ''}
         onNewRequest={(chosenOne) => {
-          this.props.field.value[this.props.field.dataSourceConfig.text] = chosenOne[this.props.field.label.text];
-          this.props.field.value[this.props.field.dataSourceConfig.value] = chosenOne[this.props.field.label.value];
-          this.props.onNewRequest(this.props.field, this.props.index);
-          this.setState({ value: this.props.field.value[this.state.dataSourceConfig.text] });
+          const field = {};
+          const { value } = this.state;
+          field.value = {};
+          field.value[this.props.field.dataSourceConfig.text] = chosenOne[this.props.field.dataSourceConfig.text];
+          field.value[this.props.field.dataSourceConfig.value] = chosenOne[this.props.field.dataSourceConfig.value];
+          this.props.onNewRequest(field, this.props.index);
+          value[this.props.field.dataSourceConfig.text] = field.value[this.state.dataSourceConfig.text];
+          this.setState({ value });
         }}
         onUpdateInput={(searchText) => {
           if (this.state.value) {
-            this.state.value[this.props.field.dataSourceConfig.text] = searchText;
+            const { value } = this.state;
+            value[this.props.field.dataSourceConfig.text] = searchText;
+            this.setState({ value });
           } else {
-            this.state.value = {};
-            this.state.value[this.props.field.dataSourceConfig.text] = searchText;
+            const value = {};
+            value[this.props.field.dataSourceConfig.text] = searchText;
+            this.setState({ value })
           }
           this.props.onUpdateInput(this.props.field, this.props.index);
         }}

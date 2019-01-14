@@ -54,7 +54,7 @@ class LocalList extends Component {
   }
 
   onSave = (local) => {
-    let { dispatch } = this.props;
+    const { dispatch } = this.props;
     const data = {
       descricao: local['0'].value,
       _idSubLocal: local['1'].value ? local['1'].value._id : null,
@@ -70,7 +70,7 @@ class LocalList extends Component {
     }
 
     dispatch(startUpdateLocal(
-      local._id,
+      local.id,
       data,
       this.props.local.locais,
       linkedData,

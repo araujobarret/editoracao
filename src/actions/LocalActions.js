@@ -83,33 +83,28 @@ export const setUpdateLocal = (locais) => {
 
 // Atualiza um autor
 export const startUpdateLocal = (_id, params, locais, linkedData, token) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     return axios({
       method: 'put',
-      url: types.LOCAL + "/" + _id,
+      url: `${types.LOCAL}/${_id}`,
       headers: types.GET_HTTP_HEADER(token),
       data: params,
-      validateStatus: function (status) {
-        return status >= 200 && status <= 401;
-      }
+      validateStatus: status => status >= 200 && status <= 401
     }).then((res) => {
-      if(res.status === 200){
+      if (res.status === 200) {
         // Update the array of Locais and setThe _idSubLocal with the correspondind data
-        locais = locais.map(local => {
-          if(local._id === res.data._id){
+        const newLocais = locais.map((local) => {
+          if (local._id === res.data._id) {
             res.data._idSubLocal = linkedData;
             return res.data;
           }
-          else {
-            return local;
-          }
+          return local;
         });
-        dispatch(setUpdateLocal(locais));
-      }
-      else {
+        dispatch(setUpdateLocal(newLocais));
+      } else {
         dispatch(erroLocal(ERRO_COMUNICACAO));
       }
-    }).catch((e) => {
+    }).catch(() => {
       dispatch(erroLocal(ERRO_COMUNICACAO));
     });
   };

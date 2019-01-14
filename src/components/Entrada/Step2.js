@@ -13,6 +13,7 @@ import FiberNewIcon from 'material-ui/svg-icons/av/fiber-new';
 import 'font-awesome/css/font-awesome.min.css';
 
 import './Entrada.styles.css';
+import { AUTOR } from '../../constants/Api';
 import EditDialog from '../Dialogs/EditDialog';
 
 class Step2 extends Component {
@@ -250,6 +251,14 @@ class Step2 extends Component {
               paramName: 'nome',
               value: this.state.autor ? this.state.autor.nome : null,
               type: 'text',
+            },
+            {
+              label: 'Autor',
+              minLength: 5,
+              paramName: 'autor',
+              url: AUTOR,
+              type: 'dynamic',
+              dataSourceConfig: { value: '_id', text: 'nome' },
             },
           ]}
         />
